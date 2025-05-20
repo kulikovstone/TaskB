@@ -1,8 +1,10 @@
 package com.mkulikov.taskb.ui.screen.main
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mkulikov.taskb.data.IMainRepository
+import com.mkulikov.taskb.data.ITestNetworkRepository
 import com.mkulikov.taskb.database.Group
 import com.mkulikov.taskb.database.Task
 import com.mkulikov.taskb.ext.isCompleted
@@ -23,6 +25,7 @@ import kotlinx.datetime.LocalDateTime
 
 class MainViewModel(
     private val repository: IMainRepository,
+    private val networkRepository: ITestNetworkRepository,
     private val groupHolder: IGroupDataHolder,
     private val taskHolder: ITaskDataHolder,
 ) : ViewModel() {
@@ -80,9 +83,23 @@ class MainViewModel(
                 is MainIntent.RemoveTask -> removeTask(intent.task)
                 is MainIntent.ChangeTaskCompletion -> changeTaskCompletion(intent.task)
                 is MainIntent.SelectTask -> taskSelection(intent.task)
+                is MainIntent.LoadPosts -> {
+//                    loadPosts()
+                }
             }
         }
     }
+
+//    private fun loadPosts() {
+//        viewModelScope.launch {
+//            val result = networkRepository.loadPosts()
+//            if (result.isSuccess) {
+//                Log.d("MainViewModel", "Посты загружены: ${result.getOrNull()}")
+//            } else {
+//                Log.e("MainViewModel", "Ошибка загрузки постов: ${result.exceptionOrNull()?.message}")
+//            }
+//        }
+//    }
 
     private suspend fun addTask(name: String, groupId: Int?) {
         taskHolder.unselectTask()
@@ -172,4 +189,6 @@ sealed class MainIntent {
     data class RemoveTask(val task: Task) : MainIntent()
     data class ChangeTaskCompletion (val task: Task) : MainIntent()
     data class SelectTask(val task: Task) : MainIntent()
+
+    data object LoadPosts : MainIntent()
 }

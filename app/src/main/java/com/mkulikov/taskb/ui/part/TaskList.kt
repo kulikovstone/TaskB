@@ -37,6 +37,7 @@ fun TaskList(
             buttonName = "Добавить",
             add = { text ->
                 intent(MainIntent.AddTask(text, selectedGroup?.id))
+//                intent(MainIntent.LoadPosts)
             }
         )
 

@@ -19,12 +19,12 @@ class AddGroupViewModel(
 
     var toBack: (() -> Unit)? = null
 
-    fun action(action: AddGroupIntent) {
+    fun handleIntent(intent: AddGroupIntent) {
         viewModelScope.launch {
-            when (action) {
+            when (intent) {
                 AddGroupIntent.Back -> toBack?.invoke()
-                is AddGroupIntent.ChangeColor -> changeColor(action.color)
-                is AddGroupIntent.AddGroup -> addGroup(action.name, action.color)
+                is AddGroupIntent.ChangeColor -> changeColor(intent.color)
+                is AddGroupIntent.AddGroup -> addGroup(intent.name, intent.color)
             }
         }
     }

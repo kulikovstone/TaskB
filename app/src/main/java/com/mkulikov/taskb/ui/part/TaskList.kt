@@ -25,7 +25,7 @@ fun TaskList(
     tasks: List<Task>,
     selectedTask: Task?,
     selectedGroup: Group?,
-    action: (MainIntent) -> Unit,
+    intent: (MainIntent) -> Unit,
 ) {
     Column(
         modifier = Modifier.fillMaxSize()
@@ -36,7 +36,7 @@ fun TaskList(
             placeholder = "Название задачи",
             buttonName = "Добавить",
             add = { text ->
-                action(MainIntent.AddTask(text, selectedGroup?.id))
+                intent(MainIntent.AddTask(text, selectedGroup?.id))
             }
         )
 
@@ -48,10 +48,10 @@ fun TaskList(
                     TaskItem(
                         name = task.name,
                         isCompleted = task.isCompleted(),
-                        changeStatusCompletion = { action(MainIntent.ChangeTaskCompletion(task)) },
+                        changeStatusCompletion = { intent(MainIntent.ChangeTaskCompletion(task)) },
                         isSelected = selectedTask?.id == task.id,
-                        select = { action(MainIntent.SelectTask(task)) },
-                        remove = { action(MainIntent.RemoveTask(task)) }
+                        select = { intent(MainIntent.SelectTask(task)) },
+                        remove = { intent(MainIntent.RemoveTask(task)) }
                     )
                 }
             }

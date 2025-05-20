@@ -46,7 +46,7 @@ fun GroupList(
     selectedGroup: Group?,
     counts: Counts,
     filter: TaskFilter,
-    action: (MainIntent) -> Unit,
+    intent: (MainIntent) -> Unit,
 ) {
     Column(
         modifier = Modifier.fillMaxSize()
@@ -55,13 +55,13 @@ fun GroupList(
 
         GroupPanel(
             selectedGroup = selectedGroup,
-            action = action,
+            intent = intent,
         )
 
         DefaultGroups(
             counts = counts,
             filter = filter,
-            onClick = { action(MainIntent.SelectDefaultGroup(it)) }
+            onClick = { intent(MainIntent.SelectDefaultGroup(it)) }
         )
 
         Divider()
@@ -75,7 +75,7 @@ fun GroupList(
                     color = group.color,
                     count = counts.group.getOrDefault(group.id, 0),
                     isSelected = selectedGroup?.id == group.id,
-                    select = { action(MainIntent.SelectGroup(group)) },
+                    select = { intent(MainIntent.SelectGroup(group)) },
                 )
             }
         }
@@ -116,7 +116,7 @@ private fun Divider() {
 @Composable
 private fun GroupPanel(
     selectedGroup: Group?,
-    action: (MainIntent) -> Unit,
+    intent: (MainIntent) -> Unit,
 ) {
     Box {
         Row(
@@ -138,7 +138,7 @@ private fun GroupPanel(
 
             selectedGroup?.let {
                 IconButton(
-                    onClick = { action(MainIntent.EditGroup(selectedGroup)) },
+                    onClick = { intent(MainIntent.EditGroup(selectedGroup)) },
                 ) {
                     Icon(
                         imageVector = Icons.Outlined.Edit,
@@ -148,7 +148,7 @@ private fun GroupPanel(
             }
 
             IconButton(
-                onClick = { action(MainIntent.AddGroup) },
+                onClick = { intent(MainIntent.AddGroup) },
             ) {
                 Icon(
                     imageVector = Icons.Outlined.Add,

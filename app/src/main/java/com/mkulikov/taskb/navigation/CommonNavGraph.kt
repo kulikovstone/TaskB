@@ -29,7 +29,7 @@ internal fun TaskBNavGraph(
 
         MainScreen(
             state = state,
-            action = viewModel::action,
+            intent = viewModel::handleIntent,
         )
     }
 
@@ -40,7 +40,7 @@ internal fun TaskBNavGraph(
 
         AddGroupScreen(
             state = state,
-            action = viewModel::action,
+            intent = viewModel::handleIntent,
         )
     }
 
@@ -51,7 +51,7 @@ internal fun TaskBNavGraph(
 
         EditGroupScreen(
             state = state,
-            action = viewModel::action,
+            intent = viewModel::handleIntent,
         )
     }
 }

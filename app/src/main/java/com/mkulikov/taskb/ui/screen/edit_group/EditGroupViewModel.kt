@@ -30,13 +30,13 @@ class EditGroupViewModel(
     // отображение сообщения об удалении этих задач
     // Кнопки - удалить (удаляет все), отмена
 
-    fun action(action: EditGroupIntent) {
+    fun handleIntent(intent: EditGroupIntent) {
         viewModelScope.launch {
-            when (action) {
+            when (intent) {
                 EditGroupIntent.Back -> toBack?.invoke()
-                is EditGroupIntent.ChangeColor -> changeColor(action.color)
+                is EditGroupIntent.ChangeColor -> changeColor(intent.color)
                 EditGroupIntent.RemoveGroup -> removeGroup()
-                is EditGroupIntent.EditGroup -> editGroup(action.name, action.color)
+                is EditGroupIntent.EditGroup -> editGroup(intent.name, intent.color)
             }
         }
     }

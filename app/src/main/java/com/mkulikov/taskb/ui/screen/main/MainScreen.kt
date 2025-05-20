@@ -16,7 +16,7 @@ import com.mkulikov.taskb.ui.screen.loading.LoadingScreen
 @Composable
 fun MainScreen(
     state: MainState,
-    action: (MainIntent) -> Unit,
+    intent: (MainIntent) -> Unit,
 ) {
     when (state) {
         is MainState.Loading -> LoadingScreen()
@@ -28,7 +28,7 @@ fun MainScreen(
                 selectedTask = state.selected.task,
                 counts = state.counts,
                 filter = state.filter,
-                action = action,
+                intent = intent,
             )
         }
     }
@@ -41,7 +41,7 @@ fun Content(
     selectedGroup: Group?,
     selectedTask: Task?,
     counts: Counts,
-    action: (MainIntent) -> Unit,
+    intent: (MainIntent) -> Unit,
     filter: TaskFilter,
 ) {
     Row {
@@ -50,7 +50,7 @@ fun Content(
         ) {
             GroupList(
                 groups = groups,
-                action = action,
+                intent = intent,
                 counts = counts,
                 filter = filter,
                 selectedGroup = selectedGroup,
@@ -65,7 +65,7 @@ fun Content(
                 tasks = tasks,
                 selectedTask = selectedTask,
                 selectedGroup = selectedGroup,
-                action = action,
+                intent = intent,
             )
         }
     }

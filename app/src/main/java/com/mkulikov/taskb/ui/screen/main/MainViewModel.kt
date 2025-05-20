@@ -67,19 +67,19 @@ class MainViewModel(
     var toAddGroup: (() -> Unit)? = null
     var toEditGroup: (() -> Unit)? = null
 
-    fun action(action: MainIntent) {
+    fun handleIntent(intent: MainIntent) {
         viewModelScope.launch {
-            when (action) {
+            when (intent) {
                 is MainIntent.AddGroup -> toAddGroup?.invoke()
                 is MainIntent.EditGroup -> toEditGroup?.invoke()
 
-                is MainIntent.SelectGroup -> groupSelection(action.group)
-                is MainIntent.SelectDefaultGroup -> selectDefaultGroup(action.taskFilter)
+                is MainIntent.SelectGroup -> groupSelection(intent.group)
+                is MainIntent.SelectDefaultGroup -> selectDefaultGroup(intent.taskFilter)
 
-                is MainIntent.AddTask -> addTask(action.name, action.groupId)
-                is MainIntent.RemoveTask -> removeTask(action.task)
-                is MainIntent.ChangeTaskCompletion -> changeTaskCompletion(action.task)
-                is MainIntent.SelectTask -> taskSelection(action.task)
+                is MainIntent.AddTask -> addTask(intent.name, intent.groupId)
+                is MainIntent.RemoveTask -> removeTask(intent.task)
+                is MainIntent.ChangeTaskCompletion -> changeTaskCompletion(intent.task)
+                is MainIntent.SelectTask -> taskSelection(intent.task)
             }
         }
     }

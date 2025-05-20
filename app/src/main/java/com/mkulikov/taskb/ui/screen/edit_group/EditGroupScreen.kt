@@ -42,14 +42,14 @@ import com.mkulikov.taskb.ui.screen.loading.LoadingScreen
 @Composable
 fun EditGroupScreen(
     state: EditGroupState,
-    action: (EditGroupIntent) -> Unit,
+    intent: (EditGroupIntent) -> Unit,
 ) {
     when (state) {
         EditGroupState.Loading -> LoadingScreen()
         is EditGroupState.Data -> Content(
             oldName = state.oldName,
             selectedColor = state.selectedColor,
-            action = action,
+            intent = intent,
         )
 
         is EditGroupState.Error -> {
@@ -62,7 +62,7 @@ fun EditGroupScreen(
 private fun Content(
     oldName: String,
     selectedColor: Color,
-    action: (EditGroupIntent) -> Unit,
+    intent: (EditGroupIntent) -> Unit,
 ) {
     val focusRequester = remember { FocusRequester() }
     var name by remember { mutableStateOf("") }
@@ -115,7 +115,7 @@ private fun Content(
                 },
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
                 keyboardActions = KeyboardActions(
-                    onDone = { action(EditGroupIntent.EditGroup(name, selectedColor)) }
+                    onDone = { intent(EditGroupIntent.EditGroup(name, selectedColor)) }
                 )
             )
 
@@ -123,14 +123,14 @@ private fun Content(
 
             ColorPalette(
                 selectedColor = selectedColor,
-                select = { color -> action(EditGroupIntent.ChangeColor(color)) }
+                select = { color -> intent(EditGroupIntent.ChangeColor(color)) }
             )
 
             Spacer(modifier = Modifier.height(32.dp))
 
             Row {
                 TextButton(
-                    onClick = { action(EditGroupIntent.RemoveGroup) },
+                    onClick = { intent(EditGroupIntent.RemoveGroup) },
                     colors = ButtonDefaults.textButtonColors(
                         contentColor = MaterialTheme.colorScheme.error
                     )
@@ -141,7 +141,7 @@ private fun Content(
                 Spacer(modifier = Modifier.width(16.dp))
 
                 TextButton(
-                    onClick = { action(EditGroupIntent.Back) },
+                    onClick = { intent(EditGroupIntent.Back) },
                 ) {
                     Text("Отмена")
                 }
@@ -150,7 +150,7 @@ private fun Content(
 
                 Button(
                     enabled = name.isNotBlank(),
-                    onClick = { action(EditGroupIntent.EditGroup(name, selectedColor)) },
+                    onClick = { intent(EditGroupIntent.EditGroup(name, selectedColor)) },
                 ) {
                     Text("Сохранить")
                 }

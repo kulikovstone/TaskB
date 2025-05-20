@@ -66,13 +66,13 @@ import com.mkulikov.taskb.ui.screen.loading.LoadingScreen
 @Composable
 fun AddGroupScreen(
     state: AddGroupState,
-    action: (AddGroupIntent) -> Unit,
+    intent: (AddGroupIntent) -> Unit,
 ) {
     when (state) {
         AddGroupState.Loading -> LoadingScreen()
         is AddGroupState.Data -> Content(
             selectedColor = state.selectedColor,
-            action = action,
+            intent = intent,
         )
 
         is AddGroupState.Error -> {
@@ -84,7 +84,7 @@ fun AddGroupScreen(
 @Composable
 private fun Content(
     selectedColor: Color,
-    action: (AddGroupIntent) -> Unit,
+    intent: (AddGroupIntent) -> Unit,
 ) {
     val focusRequester = remember { FocusRequester() }
     var name by remember { mutableStateOf("") }
@@ -110,7 +110,7 @@ private fun Content(
 //                maxLength = GROUP_NAME_MAX_LENGTH,
 //                focusRequester = focusRequester,
 //                onDone = { name ->
-//                    action(AddGroupAction.AddGroup(name, selectedColor))
+//                    intent(AddGroupAction.AddGroup(name, selectedColor))
 //                }
 //            )
 
@@ -146,7 +146,7 @@ private fun Content(
                 },
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
                 keyboardActions = KeyboardActions(
-                    onDone = { action(AddGroupIntent.AddGroup(name, selectedColor)) }
+                    onDone = { intent(AddGroupIntent.AddGroup(name, selectedColor)) }
                 )
             )
 
@@ -154,14 +154,14 @@ private fun Content(
 
             ColorPalette(
                 selectedColor = selectedColor,
-                select = { color -> action(AddGroupIntent.ChangeColor(color)) }
+                select = { color -> intent(AddGroupIntent.ChangeColor(color)) }
             )
 
             Spacer(modifier = Modifier.height(32.dp))
 
             Row {
                 TextButton(
-                    onClick = { action(AddGroupIntent.Back) },
+                    onClick = { intent(AddGroupIntent.Back) },
                 ) {
                     Text("Отмена")
                 }
@@ -170,7 +170,7 @@ private fun Content(
 
                 Button(
                     enabled = name.isNotBlank(),
-                    onClick = { action(AddGroupIntent.AddGroup(name, selectedColor)) },
+                    onClick = { intent(AddGroupIntent.AddGroup(name, selectedColor)) },
                 ) {
                     Text("Сохранить")
                 }

@@ -67,19 +67,19 @@ class MainViewModel(
     var toAddGroup: (() -> Unit)? = null
     var toEditGroup: (() -> Unit)? = null
 
-    fun action(action: MainAction) {
+    fun action(action: MainIntent) {
         viewModelScope.launch {
             when (action) {
-                is MainAction.AddGroup -> toAddGroup?.invoke()
-                is MainAction.EditGroup -> toEditGroup?.invoke()
+                is MainIntent.AddGroup -> toAddGroup?.invoke()
+                is MainIntent.EditGroup -> toEditGroup?.invoke()
 
-                is MainAction.SelectGroup -> groupSelection(action.group)
-                is MainAction.SelectDefaultGroup -> selectDefaultGroup(action.taskFilter)
+                is MainIntent.SelectGroup -> groupSelection(action.group)
+                is MainIntent.SelectDefaultGroup -> selectDefaultGroup(action.taskFilter)
 
-                is MainAction.AddTask -> addTask(action.name, action.groupId)
-                is MainAction.RemoveTask -> removeTask(action.task)
-                is MainAction.ChangeTaskCompletion -> changeTaskCompletion(action.task)
-                is MainAction.SelectTask -> taskSelection(action.task)
+                is MainIntent.AddTask -> addTask(action.name, action.groupId)
+                is MainIntent.RemoveTask -> removeTask(action.task)
+                is MainIntent.ChangeTaskCompletion -> changeTaskCompletion(action.task)
+                is MainIntent.SelectTask -> taskSelection(action.task)
             }
         }
     }
@@ -160,16 +160,16 @@ data class Selected(
     val task: Task? = null,
 )
 
-sealed class MainAction {
+sealed class MainIntent {
 
-    data object AddGroup : MainAction()
-    data class EditGroup(val group: Group) : MainAction()
+    data object AddGroup : MainIntent()
+    data class EditGroup(val group: Group) : MainIntent()
 
-    data class SelectGroup(val group: Group) : MainAction()
-    data class SelectDefaultGroup(val taskFilter: TaskFilter) : MainAction()
+    data class SelectGroup(val group: Group) : MainIntent()
+    data class SelectDefaultGroup(val taskFilter: TaskFilter) : MainIntent()
 
-    data class AddTask(val name: String, val groupId: Int?) : MainAction()
-    data class RemoveTask(val task: Task) : MainAction()
-    data class ChangeTaskCompletion (val task: Task) : MainAction()
-    data class SelectTask(val task: Task) : MainAction()
+    data class AddTask(val name: String, val groupId: Int?) : MainIntent()
+    data class RemoveTask(val task: Task) : MainIntent()
+    data class ChangeTaskCompletion (val task: Task) : MainIntent()
+    data class SelectTask(val task: Task) : MainIntent()
 }

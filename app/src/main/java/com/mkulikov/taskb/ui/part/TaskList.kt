@@ -18,14 +18,14 @@ import com.mkulikov.taskb.database.Task
 import com.mkulikov.taskb.ext.isCompleted
 import com.mkulikov.taskb.ui.element.AddNameField
 import com.mkulikov.taskb.ui.element.TaskItem
-import com.mkulikov.taskb.ui.screen.main.MainAction
+import com.mkulikov.taskb.ui.screen.main.MainIntent
 
 @Composable
 fun TaskList(
     tasks: List<Task>,
     selectedTask: Task?,
     selectedGroup: Group?,
-    action: (MainAction) -> Unit,
+    action: (MainIntent) -> Unit,
 ) {
     Column(
         modifier = Modifier.fillMaxSize()
@@ -36,7 +36,7 @@ fun TaskList(
             placeholder = "Название задачи",
             buttonName = "Добавить",
             add = { text ->
-                action(MainAction.AddTask(text, selectedGroup?.id))
+                action(MainIntent.AddTask(text, selectedGroup?.id))
             }
         )
 
@@ -48,10 +48,10 @@ fun TaskList(
                     TaskItem(
                         name = task.name,
                         isCompleted = task.isCompleted(),
-                        changeStatusCompletion = { action(MainAction.ChangeTaskCompletion(task)) },
+                        changeStatusCompletion = { action(MainIntent.ChangeTaskCompletion(task)) },
                         isSelected = selectedTask?.id == task.id,
-                        select = { action(MainAction.SelectTask(task)) },
-                        remove = { action(MainAction.RemoveTask(task)) }
+                        select = { action(MainIntent.SelectTask(task)) },
+                        remove = { action(MainIntent.RemoveTask(task)) }
                     )
                 }
             }

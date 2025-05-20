@@ -42,7 +42,7 @@ import com.mkulikov.taskb.ui.screen.loading.LoadingScreen
 @Composable
 fun EditGroupScreen(
     state: EditGroupState,
-    action: (EditGroupAction) -> Unit,
+    action: (EditGroupIntent) -> Unit,
 ) {
     when (state) {
         EditGroupState.Loading -> LoadingScreen()
@@ -62,7 +62,7 @@ fun EditGroupScreen(
 private fun Content(
     oldName: String,
     selectedColor: Color,
-    action: (EditGroupAction) -> Unit,
+    action: (EditGroupIntent) -> Unit,
 ) {
     val focusRequester = remember { FocusRequester() }
     var name by remember { mutableStateOf("") }
@@ -115,7 +115,7 @@ private fun Content(
                 },
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
                 keyboardActions = KeyboardActions(
-                    onDone = { action(EditGroupAction.EditGroup(name, selectedColor)) }
+                    onDone = { action(EditGroupIntent.EditGroup(name, selectedColor)) }
                 )
             )
 
@@ -123,14 +123,14 @@ private fun Content(
 
             ColorPalette(
                 selectedColor = selectedColor,
-                select = { color -> action(EditGroupAction.ChangeColor(color)) }
+                select = { color -> action(EditGroupIntent.ChangeColor(color)) }
             )
 
             Spacer(modifier = Modifier.height(32.dp))
 
             Row {
                 TextButton(
-                    onClick = { action(EditGroupAction.RemoveGroup) },
+                    onClick = { action(EditGroupIntent.RemoveGroup) },
                     colors = ButtonDefaults.textButtonColors(
                         contentColor = MaterialTheme.colorScheme.error
                     )
@@ -141,7 +141,7 @@ private fun Content(
                 Spacer(modifier = Modifier.width(16.dp))
 
                 TextButton(
-                    onClick = { action(EditGroupAction.Back) },
+                    onClick = { action(EditGroupIntent.Back) },
                 ) {
                     Text("Отмена")
                 }
@@ -150,7 +150,7 @@ private fun Content(
 
                 Button(
                     enabled = name.isNotBlank(),
-                    onClick = { action(EditGroupAction.EditGroup(name, selectedColor)) },
+                    onClick = { action(EditGroupIntent.EditGroup(name, selectedColor)) },
                 ) {
                     Text("Сохранить")
                 }

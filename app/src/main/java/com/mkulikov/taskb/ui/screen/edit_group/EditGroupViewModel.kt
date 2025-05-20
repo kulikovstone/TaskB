@@ -30,13 +30,13 @@ class EditGroupViewModel(
     // отображение сообщения об удалении этих задач
     // Кнопки - удалить (удаляет все), отмена
 
-    fun action(action: EditGroupAction) {
+    fun action(action: EditGroupIntent) {
         viewModelScope.launch {
             when (action) {
-                EditGroupAction.Back -> toBack?.invoke()
-                is EditGroupAction.ChangeColor -> changeColor(action.color)
-                EditGroupAction.RemoveGroup -> removeGroup()
-                is EditGroupAction.EditGroup -> editGroup(action.name, action.color)
+                EditGroupIntent.Back -> toBack?.invoke()
+                is EditGroupIntent.ChangeColor -> changeColor(action.color)
+                EditGroupIntent.RemoveGroup -> removeGroup()
+                is EditGroupIntent.EditGroup -> editGroup(action.name, action.color)
             }
         }
     }
@@ -82,10 +82,10 @@ sealed class EditGroupState {
     data class Error(val message: String) : EditGroupState()
 }
 
-sealed class EditGroupAction {
+sealed class EditGroupIntent {
 
-    data object Back : EditGroupAction()
-    data class ChangeColor(val color: Color) : EditGroupAction()
-    data object RemoveGroup : EditGroupAction()
-    data class EditGroup(val name: String, val color: Color) : EditGroupAction()
+    data object Back : EditGroupIntent()
+    data class ChangeColor(val color: Color) : EditGroupIntent()
+    data object RemoveGroup : EditGroupIntent()
+    data class EditGroup(val name: String, val color: Color) : EditGroupIntent()
 }

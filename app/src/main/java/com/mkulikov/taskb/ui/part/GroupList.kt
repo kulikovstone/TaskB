@@ -37,7 +37,7 @@ import com.mkulikov.taskb.theme.grey200
 import com.mkulikov.taskb.ui.element.GroupItem
 import com.mkulikov.taskb.ui.element.getGroupBackgroundColor
 import com.mkulikov.taskb.ui.screen.main.Counts
-import com.mkulikov.taskb.ui.screen.main.MainAction
+import com.mkulikov.taskb.ui.screen.main.MainIntent
 import com.mkulikov.taskb.ui.screen.main.TaskFilter
 
 @Composable
@@ -46,7 +46,7 @@ fun GroupList(
     selectedGroup: Group?,
     counts: Counts,
     filter: TaskFilter,
-    action: (MainAction) -> Unit,
+    action: (MainIntent) -> Unit,
 ) {
     Column(
         modifier = Modifier.fillMaxSize()
@@ -61,7 +61,7 @@ fun GroupList(
         DefaultGroups(
             counts = counts,
             filter = filter,
-            onClick = { action(MainAction.SelectDefaultGroup(it)) }
+            onClick = { action(MainIntent.SelectDefaultGroup(it)) }
         )
 
         Divider()
@@ -75,7 +75,7 @@ fun GroupList(
                     color = group.color,
                     count = counts.group.getOrDefault(group.id, 0),
                     isSelected = selectedGroup?.id == group.id,
-                    select = { action(MainAction.SelectGroup(group)) },
+                    select = { action(MainIntent.SelectGroup(group)) },
                 )
             }
         }
@@ -116,7 +116,7 @@ private fun Divider() {
 @Composable
 private fun GroupPanel(
     selectedGroup: Group?,
-    action: (MainAction) -> Unit,
+    action: (MainIntent) -> Unit,
 ) {
     Box {
         Row(
@@ -138,7 +138,7 @@ private fun GroupPanel(
 
             selectedGroup?.let {
                 IconButton(
-                    onClick = { action(MainAction.EditGroup(selectedGroup)) },
+                    onClick = { action(MainIntent.EditGroup(selectedGroup)) },
                 ) {
                     Icon(
                         imageVector = Icons.Outlined.Edit,
@@ -148,7 +148,7 @@ private fun GroupPanel(
             }
 
             IconButton(
-                onClick = { action(MainAction.AddGroup) },
+                onClick = { action(MainIntent.AddGroup) },
             ) {
                 Icon(
                     imageVector = Icons.Outlined.Add,

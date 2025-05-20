@@ -61,13 +61,12 @@ import com.mkulikov.taskb.theme.purple400
 import com.mkulikov.taskb.theme.red400
 import com.mkulikov.taskb.theme.teal400
 import com.mkulikov.taskb.theme.yellow400
-import com.mkulikov.taskb.ui.part.NameField
 import com.mkulikov.taskb.ui.screen.loading.LoadingScreen
 
 @Composable
 fun AddGroupScreen(
     state: AddGroupState,
-    action: (AddGroupAction) -> Unit,
+    action: (AddGroupIntent) -> Unit,
 ) {
     when (state) {
         AddGroupState.Loading -> LoadingScreen()
@@ -85,7 +84,7 @@ fun AddGroupScreen(
 @Composable
 private fun Content(
     selectedColor: Color,
-    action: (AddGroupAction) -> Unit,
+    action: (AddGroupIntent) -> Unit,
 ) {
     val focusRequester = remember { FocusRequester() }
     var name by remember { mutableStateOf("") }
@@ -147,7 +146,7 @@ private fun Content(
                 },
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
                 keyboardActions = KeyboardActions(
-                    onDone = { action(AddGroupAction.AddGroup(name, selectedColor)) }
+                    onDone = { action(AddGroupIntent.AddGroup(name, selectedColor)) }
                 )
             )
 
@@ -155,14 +154,14 @@ private fun Content(
 
             ColorPalette(
                 selectedColor = selectedColor,
-                select = { color -> action(AddGroupAction.ChangeColor(color)) }
+                select = { color -> action(AddGroupIntent.ChangeColor(color)) }
             )
 
             Spacer(modifier = Modifier.height(32.dp))
 
             Row {
                 TextButton(
-                    onClick = { action(AddGroupAction.Back) },
+                    onClick = { action(AddGroupIntent.Back) },
                 ) {
                     Text("Отмена")
                 }
@@ -171,7 +170,7 @@ private fun Content(
 
                 Button(
                     enabled = name.isNotBlank(),
-                    onClick = { action(AddGroupAction.AddGroup(name, selectedColor)) },
+                    onClick = { action(AddGroupIntent.AddGroup(name, selectedColor)) },
                 ) {
                     Text("Сохранить")
                 }

@@ -19,12 +19,12 @@ class AddGroupViewModel(
 
     var toBack: (() -> Unit)? = null
 
-    fun action(action: AddGroupAction) {
+    fun action(action: AddGroupIntent) {
         viewModelScope.launch {
             when (action) {
-                AddGroupAction.Back -> toBack?.invoke()
-                is AddGroupAction.ChangeColor -> changeColor(action.color)
-                is AddGroupAction.AddGroup -> addGroup(action.name, action.color)
+                AddGroupIntent.Back -> toBack?.invoke()
+                is AddGroupIntent.ChangeColor -> changeColor(action.color)
+                is AddGroupIntent.AddGroup -> addGroup(action.name, action.color)
             }
         }
     }
@@ -52,9 +52,9 @@ sealed class AddGroupState {
     data class Error(val message: String) : AddGroupState()
 }
 
-sealed class AddGroupAction {
+sealed class AddGroupIntent {
 
-    data object Back : AddGroupAction()
-    data class ChangeColor(val color: Color) : AddGroupAction()
-    data class AddGroup(val name: String, val color: Color) : AddGroupAction()
+    data object Back : AddGroupIntent()
+    data class ChangeColor(val color: Color) : AddGroupIntent()
+    data class AddGroup(val name: String, val color: Color) : AddGroupIntent()
 }

@@ -16,7 +16,7 @@ import com.mkulikov.taskb.ui.screen.loading.LoadingScreen
 @Composable
 fun MainScreen(
     state: MainState,
-    action: (MainAction) -> Unit,
+    action: (MainIntent) -> Unit,
 ) {
     when (state) {
         is MainState.Loading -> LoadingScreen()
@@ -41,7 +41,7 @@ fun Content(
     selectedGroup: Group?,
     selectedTask: Task?,
     counts: Counts,
-    action: (MainAction) -> Unit,
+    action: (MainIntent) -> Unit,
     filter: TaskFilter,
 ) {
     Row {

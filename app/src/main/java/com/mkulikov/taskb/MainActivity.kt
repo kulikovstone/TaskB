@@ -19,15 +19,13 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            KoinContext {
-                TaskBTheme {
-                    Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                        Box(
-                            modifier = Modifier.padding(innerPadding)
-                        ) {
-                            val navController = rememberNavController()
-                            TaskBNavGraph(navController)
-                        }
+            TaskBTheme {
+                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                    Box(
+                        modifier = Modifier.padding(innerPadding)
+                    ) {
+                        val navController = rememberNavController()
+                        TaskBNavGraph(navController)
                     }
                 }
             }

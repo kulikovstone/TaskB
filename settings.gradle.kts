@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "TaskB"
 include(":app")
- 
+include(":designsystem")

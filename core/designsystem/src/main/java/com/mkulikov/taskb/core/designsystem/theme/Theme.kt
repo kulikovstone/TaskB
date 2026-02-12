@@ -1,4 +1,4 @@
-package com.mkulikov.taskb.theme
+package com.mkulikov.taskb.core.designsystem.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme

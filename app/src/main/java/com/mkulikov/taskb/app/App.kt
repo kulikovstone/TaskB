@@ -1,22 +1,20 @@
-package com.mkulikov.taskb
+package com.mkulikov.taskb.app
 
 import android.app.Application
-import com.mkulikov.taskb.di.AppModules
-import com.mkulikov.taskb.di.featureModules
-import com.mkulikov.taskb.home.di.HomeModules
+import com.mkulikov.taskb.app.di.featureModules
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.GlobalContext.startKoin
 
-class TaskBApp : Application() {
+class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
 
         startKoin {
             androidLogger()
-            androidContext(this@TaskBApp)
-            modules(featureModules(AppModules, HomeModules))
+            androidContext(this@App)
+            modules(featureModules())
         }
     }
 }

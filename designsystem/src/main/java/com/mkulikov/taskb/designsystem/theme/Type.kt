@@ -1,4 +1,4 @@
-package com.mkulikov.taskb.core.designsystem.theme
+package com.mkulikov.taskb.designsystem.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

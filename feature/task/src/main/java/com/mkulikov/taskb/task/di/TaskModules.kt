@@ -1,6 +1,6 @@
 package com.mkulikov.taskb.task.di
 
-import com.mkulikov.taskb.core.navigation.INavEntry
+import com.mkulikov.taskb.navigation.INavEntry
 import com.mkulikov.taskb.task.navigation.TaskNavEntry
 import com.mkulikov.taskb.task.screen.task_list.TaskListViewModel
 import org.koin.core.module.dsl.bind

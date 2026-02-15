@@ -19,6 +19,7 @@ internal class AppNavigator(
     }
 
     override fun pop() {
+        if (backStack.size <= 1) return
         backStack.removeLastOrNull()
     }
 }

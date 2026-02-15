@@ -1,4 +1,4 @@
-package com.mkulikov.taskb.ext
+package com.mkulikov.taskb.task.ext
 
 import kotlin.time.Clock
 import kotlinx.datetime.LocalDate

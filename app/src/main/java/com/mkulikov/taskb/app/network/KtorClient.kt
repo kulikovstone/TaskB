@@ -1,4 +1,4 @@
-package com.mkulikov.taskb.network
+package com.mkulikov.taskb.app.network
 
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
@@ -19,11 +19,13 @@ object KtorClient {
         }
 
         install(ContentNegotiation) {
-            json(Json {
-                prettyPrint = true
-                isLenient = true
-                ignoreUnknownKeys = true
-            })
+            json(
+                Json {
+                    prettyPrint = true
+                    isLenient = true
+                    ignoreUnknownKeys = true
+                }
+            )
         }
 
         expectSuccess = true

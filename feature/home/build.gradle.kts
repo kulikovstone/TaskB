@@ -23,11 +23,15 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:di"))
-    implementation(project(":core:network"))
-    implementation(project(":core:database"))
-    implementation(project(":core:designsystem"))
+    implementation(project(":designsystem"))
+    implementation(project(":core:navigation"))
     implementation(project(":feature:home-api"))
+    implementation(project(":feature:task-api"))
+
+    implementation(libs.navigation3.runtime)
+
+    implementation(libs.koin.android)
+    implementation(libs.koin.androidx.compose)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)

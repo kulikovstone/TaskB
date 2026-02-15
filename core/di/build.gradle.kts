@@ -3,12 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "com.mkulikov.taskb.di"
+    namespace = "com.mkulikov.taskb.core.di"
     compileSdk = 36
 
     defaultConfig {
         minSdk = 28
-        consumerProguardFiles("consumer-rules.pro")
     }
 
     compileOptions {
@@ -18,6 +17,10 @@ android {
 }
 
 dependencies {
-    api(libs.koin.android)
-    api(libs.koin.androidx.compose)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.android.material)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.androidx.test.espresso.core)
 }

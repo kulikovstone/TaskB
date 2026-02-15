@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.mkulikov.taskb.core.designsystem"
+    namespace = "com.mkulikov.taskb.designsystem"
     compileSdk = 36
 
     defaultConfig {
@@ -23,6 +23,7 @@ android {
 
 dependencies {
     implementation(platform(libs.compose.bom))
+
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.graphics)
     implementation(libs.compose.ui.tooling.preview)

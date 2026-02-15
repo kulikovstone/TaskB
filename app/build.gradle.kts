@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.mkulikov.taskb"
+    namespace = "com.mkulikov.taskb.app"
     compileSdk = 36
 
     defaultConfig {
@@ -59,11 +59,8 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:di"))
-    implementation(project(":core:network"))
-    implementation(project(":core:database"))
     implementation(project(":core:navigation"))
-    implementation(project(":core:designsystem"))
+    implementation(project(":designsystem"))
     implementation(project(":feature:home"))
     implementation(project(":feature:task"))
 
@@ -83,6 +80,31 @@ dependencies {
     implementation(libs.compose.ui.tooling.preview)
     implementation(libs.compose.material3)
     implementation(libs.compose.material.icons.extended)
+
+    // DI
+    implementation(libs.koin.android)
+    implementation(libs.koin.androidx.compose)
+
+    // Database
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
+
+    // Nav3
+    implementation(libs.navigation3.runtime)
+    implementation(libs.navigation3.ui)
+    implementation(libs.lifecycle.viewmodel.navigation3)
+
+    // Ktor
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.android)
+    implementation(libs.ktor.client.logging)
+    implementation(libs.ktor.client.content.negotiation)
+    implementation(libs.ktor.serialization.kotlinx.json)
+
+    // Kotlin
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.kotlinx.datetime)
 
     // Unit tests
     testImplementation(libs.junit)

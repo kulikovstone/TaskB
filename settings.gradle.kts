@@ -21,12 +21,11 @@ dependencyResolutionManagement {
 
 rootProject.name = "TaskB"
 include(":app")
-include(":core:di")
-include(":core:network")
-include(":core:database")
-include(":core:navigation")
-include(":core:designsystem")
+include(":designsystem")
 include(":feature:home")
 include(":feature:home-api")
 include(":feature:task")
 include(":feature:task-api")
+include(":util")
+include(":core:navigation")
+include(":core:di")

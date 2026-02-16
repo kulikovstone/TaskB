@@ -1,6 +1,6 @@
 package com.mkulikov.taskb.home.di
 
-import com.mkulikov.taskb.navigation.INavEntry
+import com.mkulikov.taskb.core.navigation.INavEntry
 import com.mkulikov.taskb.home.navigation.HomeNavEntry
 import com.mkulikov.taskb.home.screen.start.HomeViewModel
 import org.koin.core.module.dsl.bind

@@ -1,6 +1,6 @@
 package com.mkulikov.taskb.task.holder
 
-import com.mkulikov.taskb.task.data.Task
+import com.mkulikov.taskb.feature.task_data.database.Task
 import com.mkulikov.taskb.task.repository.IMainRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow

@@ -7,11 +7,11 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.mkulikov.taskb.designsystem.screen.loading.LoadingScreen
+import com.mkulikov.taskb.feature.task_data.database.Group
+import com.mkulikov.taskb.feature.task_data.database.Task
 import com.mkulikov.taskb.task.screen_old.GroupList
 import com.mkulikov.taskb.task.screen_old.TaskList
-import com.mkulikov.taskb.task.data.Group
-import com.mkulikov.taskb.task.data.Task
-import com.mkulikov.taskb.designsystem.screen.loading.LoadingScreen
 
 @Composable
 fun TaskScreen(

@@ -1,9 +1,9 @@
 package com.mkulikov.taskb.task.repository
 
-import com.mkulikov.taskb.task.data.Group
-import com.mkulikov.taskb.task.data.GroupDao
-import com.mkulikov.taskb.task.data.Task
-import com.mkulikov.taskb.task.data.TaskDao
+import com.mkulikov.taskb.feature.task_data.database.Group
+import com.mkulikov.taskb.feature.task_data.database.GroupDao
+import com.mkulikov.taskb.feature.task_data.database.Task
+import com.mkulikov.taskb.feature.task_data.database.TaskDao
 import kotlinx.coroutines.flow.Flow
 
 interface IMainRepository {

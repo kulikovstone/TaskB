@@ -2,7 +2,7 @@ package com.mkulikov.taskb.home.screen.start
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mkulikov.taskb.navigation.IAppNavigator
+import com.mkulikov.taskb.core.navigation.IAppNavigator
 import com.mkulikov.taskb.task_api.navigation.TaskList
 import kotlinx.coroutines.launch
 

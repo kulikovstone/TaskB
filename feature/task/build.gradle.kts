@@ -24,9 +24,12 @@ android {
 
 dependencies {
     implementation(project(":designsystem"))
-    implementation(project(":navigation"))
+    implementation(project(":core:navigation"))
+    implementation(project(":core:database"))
+    implementation(project(":base"))
+
     implementation(project(":feature:task-api"))
-    implementation(project(":util"))
+    implementation(project(":feature:task-data"))
 
     implementation(libs.navigation3.runtime)
 

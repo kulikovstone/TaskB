@@ -2,17 +2,17 @@ package com.mkulikov.taskb.task.screen_old.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mkulikov.taskb.task.repository.IMainRepository
-import com.mkulikov.taskb.task.data.Group
-import com.mkulikov.taskb.task.data.Task
+import com.mkulikov.taskb.base.createIf
+import com.mkulikov.taskb.base.now
+import com.mkulikov.taskb.feature.task_data.database.Group
+import com.mkulikov.taskb.feature.task_data.database.Task
 import com.mkulikov.taskb.task.ext.isCompleted
 import com.mkulikov.taskb.task.ext.isGroup
 import com.mkulikov.taskb.task.ext.isToday
 import com.mkulikov.taskb.task.ext.isWithoutGroup
-import com.mkulikov.taskb.task.ext.now
 import com.mkulikov.taskb.task.holder.IGroupDataHolder
 import com.mkulikov.taskb.task.holder.ITaskDataHolder
-import com.mkulikov.taskb.util.createIf
+import com.mkulikov.taskb.task.repository.IMainRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine

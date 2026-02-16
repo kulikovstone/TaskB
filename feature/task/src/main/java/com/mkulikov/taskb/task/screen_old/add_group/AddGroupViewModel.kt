@@ -3,8 +3,8 @@ package com.mkulikov.taskb.task.screen_old.add_group
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mkulikov.taskb.feature.task_data.database.Group
 import com.mkulikov.taskb.task.repository.IMainRepository
-import com.mkulikov.taskb.task.data.Group
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch

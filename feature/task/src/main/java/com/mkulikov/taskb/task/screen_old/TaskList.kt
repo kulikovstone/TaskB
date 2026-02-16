@@ -13,11 +13,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.mkulikov.taskb.task.data.Group
-import com.mkulikov.taskb.task.data.Task
-import com.mkulikov.taskb.task.ext.isCompleted
-import com.mkulikov.taskb.core.designsystem.old.element.AddNameField
 import com.mkulikov.taskb.core.designsystem.component.TaskItem
+import com.mkulikov.taskb.core.designsystem.old.element.AddNameField
+import com.mkulikov.taskb.feature.task_data.database.Group
+import com.mkulikov.taskb.feature.task_data.database.Task
+import com.mkulikov.taskb.task.ext.isCompleted
 import com.mkulikov.taskb.task.screen_old.main.MainIntent
 
 @Composable

@@ -59,8 +59,10 @@ android {
 }
 
 dependencies {
-    implementation(project(":navigation"))
+    implementation(project(":core:navigation"))
+    implementation(project(":core:database"))
     implementation(project(":designsystem"))
+
     implementation(project(":feature:home"))
     implementation(project(":feature:task"))
 

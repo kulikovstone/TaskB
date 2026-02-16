@@ -1,4 +1,4 @@
-package com.mkulikov.taskb.core.designsystem.component
+package com.mkulikov.taskb.designsystem.component
 
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton

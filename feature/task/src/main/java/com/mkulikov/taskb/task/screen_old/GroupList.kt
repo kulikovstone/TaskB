@@ -31,12 +31,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.mkulikov.taskb.task.screen_old.main.Counts
-import com.mkulikov.taskb.task.data.Group
-import com.mkulikov.taskb.designsystem.theme.PhoenixTheme
-import com.mkulikov.taskb.core.designsystem.theme.grey200
 import com.mkulikov.taskb.core.designsystem.old.element.GroupItem
 import com.mkulikov.taskb.core.designsystem.old.element.getGroupBackgroundColor
+import com.mkulikov.taskb.core.designsystem.theme.grey200
+import com.mkulikov.taskb.designsystem.theme.PhoenixTheme
+import com.mkulikov.taskb.feature.task_data.database.Group
+import com.mkulikov.taskb.task.screen_old.main.Counts
 import com.mkulikov.taskb.task.screen_old.main.MainIntent
 import com.mkulikov.taskb.task.screen_old.main.TaskFilter
 

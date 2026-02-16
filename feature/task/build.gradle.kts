@@ -38,6 +38,7 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)
 
+    implementation(libs.kotlinx.serialization.json)
     implementation(libs.kotlinx.datetime)
 
     implementation(platform(libs.compose.bom))

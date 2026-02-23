@@ -17,6 +17,9 @@
             <option value="$PROJECT_DIR$/core/navigation" />
             <option value="$PROJECT_DIR$/designsystem" />
             <option value="$PROJECT_DIR$/feature" />
+            <option value="$PROJECT_DIR$/feature/group" />
+            <option value="$PROJECT_DIR$/feature/group-api" />
+            <option value="$PROJECT_DIR$/feature/group-data" />
             <option value="$PROJECT_DIR$/feature/home" />
             <option value="$PROJECT_DIR$/feature/home-api" />
             <option value="$PROJECT_DIR$/feature/task" />

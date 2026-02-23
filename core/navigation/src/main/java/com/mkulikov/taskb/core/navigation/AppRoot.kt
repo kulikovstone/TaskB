@@ -6,7 +6,7 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
-import com.mkulikov.taskb.home_api.navigation.Home
+import com.mkulikov.taskb.home_api.navigation.HomeRoute
 import org.koin.compose.getKoin
 
 @Composable
@@ -15,7 +15,7 @@ fun AppRoot() {
 
     val backStack = remember {
         koin.get<SnapshotStateList<NavKey>>().also { stack ->
-            if (stack.isEmpty()) stack += Home
+            if (stack.isEmpty()) stack += HomeRoute.Home
         }
     }
     val navigator = remember { koin.get<IAppNavigator>() }

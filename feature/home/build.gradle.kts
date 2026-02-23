@@ -28,6 +28,7 @@ dependencies {
 
     implementation(project(":feature:home-api"))
     implementation(project(":feature:task-api"))
+    implementation(project(":feature:group-api"))
 
     implementation(libs.navigation3.runtime)
 

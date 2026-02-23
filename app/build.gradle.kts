@@ -64,6 +64,7 @@ dependencies {
     implementation(project(":designsystem"))
 
     implementation(project(":feature:home"))
+    implementation(project(":feature:group"))
     implementation(project(":feature:task"))
 
     // AndroidX base

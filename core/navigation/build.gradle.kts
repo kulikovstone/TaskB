@@ -24,6 +24,7 @@ android {
 
 dependencies {
     implementation(project(":feature:home-api"))
+    implementation(project(":feature:group-api"))
     implementation(project(":feature:task-api"))
 
     implementation(libs.navigation3.runtime)

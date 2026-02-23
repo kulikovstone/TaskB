@@ -8,20 +8,20 @@ import com.mkulikov.taskb.core.navigation.IAppNavigator
 import com.mkulikov.taskb.core.navigation.INavEntry
 import com.mkulikov.taskb.task.screen.task_list.TaskListScreen
 import com.mkulikov.taskb.task.screen.task_list.TaskListViewModel
-import com.mkulikov.taskb.task_api.navigation.TaskList
+import com.mkulikov.taskb.task_api.navigation.TaskRoute
 import org.koin.androidx.compose.koinViewModel
 
 class TaskNavEntry() : INavEntry {
 
     override fun register(scope: EntryProviderScope<NavKey>, navigator: IAppNavigator) =
         with(scope) {
-            entry<TaskList> {
+            entry<TaskRoute.TaskList> {
                 val viewModel = koinViewModel<TaskListViewModel>()
                 val state by viewModel.state.collectAsStateWithLifecycle()
 
                 TaskListScreen(
                     state = state,
-                    intent = {},
+                    intent = viewModel::handleIntent,
                 )
             }
         }

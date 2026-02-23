@@ -1,4 +1,4 @@
-package com.mkulikov.taskb.core.designsystem.theme
+package com.mkulikov.taskb.designsystem.theme
 
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color

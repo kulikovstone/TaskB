@@ -5,12 +5,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ReadOnlyComposable
-import com.mkulikov.taskb.core.designsystem.theme.CustomColor
-import com.mkulikov.taskb.core.designsystem.theme.DarkColorScheme
-import com.mkulikov.taskb.core.designsystem.theme.LightColorScheme
-import com.mkulikov.taskb.core.designsystem.theme.LocalCustomColor
-import com.mkulikov.taskb.core.designsystem.theme.getCustomColorsDark
-import com.mkulikov.taskb.core.designsystem.theme.getCustomColorsLight
 
 @Composable
 fun TaskBTheme(

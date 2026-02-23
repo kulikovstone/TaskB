@@ -19,8 +19,10 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.mkulikov.taskb.designsystem.screen.loading.LoadingScreen
+import com.mkulikov.taskb.designsystem.theme.TaskBTheme
 import com.mkulikov.taskb.group.screen.group_list.compose.GroupItem
 
 @Composable
@@ -56,7 +58,7 @@ private fun GroupListContent(
                     IconButton(onClick = { intent(GroupListIntent.Back) }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Settings",
+                            contentDescription = "ArrowBack",
                         )
                     }
                 },
@@ -100,4 +102,13 @@ private fun GroupListContent(
             }
         }
     }
+}
+
+@Composable
+@PreviewLightDark
+private fun GroupListScreenPreview() = TaskBTheme {
+    GroupListScreen (
+        state = getGroupLisMock(),
+        intent = {},
+    )
 }

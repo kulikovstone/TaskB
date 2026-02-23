@@ -19,8 +19,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.mkulikov.taskb.core.designsystem.component.EmailField
-import com.mkulikov.taskb.core.designsystem.component.PasswordField
+import com.mkulikov.taskb.designsystem.component.EmailField
+import com.mkulikov.taskb.designsystem.component.PasswordField
 import com.mkulikov.taskb.designsystem.screen.loading.LoadingScreen
 
 @Composable

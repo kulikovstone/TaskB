@@ -1,4 +1,4 @@
-package com.mkulikov.taskb.core.designsystem.old.element
+package com.mkulikov.taskb.designsystem.old.element
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer

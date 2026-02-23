@@ -1,8 +1,8 @@
-package com.mkulikov.taskb.core.designsystem.component.group_selector
+package com.mkulikov.taskb.designsystem.component.group_selector
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import com.mkulikov.taskb.core.designsystem.theme.purple100
+import com.mkulikov.taskb.designsystem.theme.purple100
 
 internal class GroupSelectorDataProvider : PreviewParameterProvider<GroupSelectorDataProvider.Data> {
 

@@ -1,4 +1,4 @@
-package com.mkulikov.taskb.core.designsystem.component.group_selector
+package com.mkulikov.taskb.designsystem.component.group_selector
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -10,6 +10,7 @@ import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -18,8 +19,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
-import com.mkulikov.taskb.core.designsystem.theme.grey800
-import com.mkulikov.taskb.designsystem.util.PreviewContainer
+import com.mkulikov.taskb.designsystem.theme.grey800
+import com.mkulikov.taskb.designsystem.theme.TaskBTheme
 
 @Composable
 fun GroupSelector(
@@ -27,7 +28,7 @@ fun GroupSelector(
     color: Color,
     selected: Boolean,
     onClick: (Boolean) -> Unit,
-) {
+) = Surface {
     FilterChip(
         onClick = { onClick(!selected) },
         label = { Text(text = name) },
@@ -60,11 +61,9 @@ fun GroupSelector(
 @Composable
 @PreviewLightDark
 private fun GroupSelectorPreview(
-    @PreviewParameter(GroupSelectorDataProvider ::class)
+    @PreviewParameter(GroupSelectorDataProvider::class)
     data: GroupSelectorDataProvider.Data,
-) = PreviewContainer(
-    modifier = Modifier.padding(horizontal = 8.dp)
-) {
+) = TaskBTheme {
     GroupSelector(
         name = data.name,
         color = data.color,

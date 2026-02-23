@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.FilterAlt
 import androidx.compose.material.icons.filled.FilterAltOff
@@ -20,9 +21,11 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import com.mkulikov.taskb.core.designsystem.component.TaskItemNew
 import com.mkulikov.taskb.designsystem.screen.loading.LoadingScreen
+import com.mkulikov.taskb.designsystem.theme.TaskBTheme
+import com.mkulikov.taskb.task.screen.task_list.compose.TaskItem
 
 @Composable
 fun TaskListScreen(
@@ -56,10 +59,10 @@ private fun TaskListContent(
         topBar = {
             TopAppBar(
                 navigationIcon = {
-                    IconButton(onClick = { intent(TaskListIntent.OpenSettings) }) {
+                    IconButton(onClick = { intent(TaskListIntent.Back) }) {
                         Icon(
-                            imageVector = Icons.Filled.Settings,
-                            contentDescription = "Settings",
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "ArrowBack",
                         )
                     }
                 },
@@ -97,13 +100,13 @@ private fun TaskListContent(
     ) { innerPadding ->
         LazyColumn(
             modifier = Modifier.padding(innerPadding),
-            contentPadding = PaddingValues(bottom = 100.dp),
+            contentPadding = PaddingValues(bottom = 50.dp),
         ) {
             items(
                 items = taskList,
                 key = { it.id },
             ) { task ->
-                TaskItemNew(
+                TaskItem(
                     name = task.name,
                     color = task.color,
                     isCompleted = task.isCompleted,
@@ -115,3 +118,11 @@ private fun TaskListContent(
     }
 }
 
+@Composable
+@PreviewLightDark
+private fun TaskListScreenPreview() = TaskBTheme {
+    TaskListScreen(
+        state = getTaskListMock(),
+        intent = {},
+    )
+}

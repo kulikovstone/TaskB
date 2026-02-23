@@ -1,8 +1,7 @@
-package com.mkulikov.taskb.core.designsystem.component.color_selector
+package com.mkulikov.taskb.designsystem.component.color_selector
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
@@ -18,8 +17,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
-import com.mkulikov.taskb.core.designsystem.theme.grey800
-import com.mkulikov.taskb.designsystem.util.PreviewContainer
+import com.mkulikov.taskb.designsystem.theme.TaskBTheme
+import com.mkulikov.taskb.designsystem.theme.grey800
 
 @Composable
 fun ColorSelector(
@@ -61,9 +60,7 @@ fun ColorSelector(
 private fun ColorSelectorPreview(
     @PreviewParameter(ColorSelectorDataProvider::class)
     data: ColorSelectorDataProvider.Data,
-) = PreviewContainer(
-    modifier = Modifier.padding(horizontal = 8.dp)
-) {
+) = TaskBTheme {
     ColorSelector(
         name = data.name,
         color = data.color,

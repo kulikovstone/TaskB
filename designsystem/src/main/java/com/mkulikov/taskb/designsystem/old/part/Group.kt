@@ -1,4 +1,4 @@
-package com.mkulikov.taskb.core.designsystem.old.part
+package com.mkulikov.taskb.designsystem.old.part
 
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size

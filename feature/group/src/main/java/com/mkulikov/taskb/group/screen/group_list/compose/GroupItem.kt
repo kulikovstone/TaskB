@@ -16,7 +16,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import com.mkulikov.taskb.core.designsystem.theme.lightGreen400
+import com.mkulikov.taskb.designsystem.theme.GroupColor
+import com.mkulikov.taskb.designsystem.theme.lightGreen400
 import com.mkulikov.taskb.designsystem.theme.TaskBTheme
 
 @Composable
@@ -54,7 +55,7 @@ private fun GroupItemPreview() {
     TaskBTheme {
         GroupItem(
             name = "TaskB",
-            color = lightGreen400,
+            color = GroupColor.blue,
             openGroup = {},
         )
     }

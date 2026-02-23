@@ -1,4 +1,4 @@
-package com.mkulikov.taskb.core.designsystem.old.part
+package com.mkulikov.taskb.designsystem.old.part
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -18,25 +18,25 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
-import com.mkulikov.taskb.core.designsystem.theme.amber400
-import com.mkulikov.taskb.core.designsystem.theme.blue400
-import com.mkulikov.taskb.core.designsystem.theme.blueGrey400
-import com.mkulikov.taskb.core.designsystem.theme.brown400
-import com.mkulikov.taskb.core.designsystem.theme.cyan400
-import com.mkulikov.taskb.core.designsystem.theme.deepOrange400
-import com.mkulikov.taskb.core.designsystem.theme.deepPurple400
-import com.mkulikov.taskb.core.designsystem.theme.green400
-import com.mkulikov.taskb.core.designsystem.theme.grey400
-import com.mkulikov.taskb.core.designsystem.theme.indigo400
-import com.mkulikov.taskb.core.designsystem.theme.lightBlue400
-import com.mkulikov.taskb.core.designsystem.theme.lightGreen400
-import com.mkulikov.taskb.core.designsystem.theme.lime400
-import com.mkulikov.taskb.core.designsystem.theme.orange400
-import com.mkulikov.taskb.core.designsystem.theme.pink400
-import com.mkulikov.taskb.core.designsystem.theme.purple400
-import com.mkulikov.taskb.core.designsystem.theme.red400
-import com.mkulikov.taskb.core.designsystem.theme.teal400
-import com.mkulikov.taskb.core.designsystem.theme.yellow400
+import com.mkulikov.taskb.designsystem.theme.amber400
+import com.mkulikov.taskb.designsystem.theme.blue400
+import com.mkulikov.taskb.designsystem.theme.blueGrey400
+import com.mkulikov.taskb.designsystem.theme.brown400
+import com.mkulikov.taskb.designsystem.theme.cyan400
+import com.mkulikov.taskb.designsystem.theme.deepOrange400
+import com.mkulikov.taskb.designsystem.theme.deepPurple400
+import com.mkulikov.taskb.designsystem.theme.green400
+import com.mkulikov.taskb.designsystem.theme.grey400
+import com.mkulikov.taskb.designsystem.theme.indigo400
+import com.mkulikov.taskb.designsystem.theme.lightBlue400
+import com.mkulikov.taskb.designsystem.theme.lightGreen400
+import com.mkulikov.taskb.designsystem.theme.lime400
+import com.mkulikov.taskb.designsystem.theme.orange400
+import com.mkulikov.taskb.designsystem.theme.pink400
+import com.mkulikov.taskb.designsystem.theme.purple400
+import com.mkulikov.taskb.designsystem.theme.red400
+import com.mkulikov.taskb.designsystem.theme.teal400
+import com.mkulikov.taskb.designsystem.theme.yellow400
 
 @Composable
 fun ChangeColorDialog(

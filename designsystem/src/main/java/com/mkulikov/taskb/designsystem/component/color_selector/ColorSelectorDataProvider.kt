@@ -1,4 +1,4 @@
-package com.mkulikov.taskb.core.designsystem.component.color_selector
+package com.mkulikov.taskb.designsystem.component.color_selector
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider

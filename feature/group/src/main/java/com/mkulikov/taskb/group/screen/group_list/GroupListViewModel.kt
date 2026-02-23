@@ -1,7 +1,6 @@
 package com.mkulikov.taskb.group.screen.group_list
 
 import android.util.Log
-import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import com.mkulikov.taskb.core.navigation.IAppNavigator
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,7 +13,7 @@ class GroupListViewModel(
     val state = MutableStateFlow<GroupListState>(GroupListState.Loading)
 
     init {
-        state.update { getMockGroups() }
+        state.update { getGroupLisMock() }
     }
 
     fun handleIntent(intent: GroupListIntent) {
@@ -42,35 +41,3 @@ sealed class GroupListIntent {
     data object AddGroup : GroupListIntent()
     data class OpenGroup(val group: Group) : GroupListIntent()
 }
-
-private fun getMockGroups() = GroupListState.Data(
-    title = "All groups",
-    groups = List(10) { index ->
-        Group(
-            id = index,
-            name = listOf(
-                "Работа",
-                "Покупки",
-                "TaskB",
-                "Обучение",
-                "Английский язык",
-                "Переезд в Японию",
-                "Покупка квартиры",
-                "Хобби",
-                "Тренировки",
-                "Работа",
-                "Здоровье",
-                "Покупка участка",
-            ).random(),
-            color = listOf(
-                Color.Green,
-                Color.Blue,
-                Color.Red,
-                Color.Cyan,
-                Color.Gray,
-                Color.Magenta,
-                Color.Yellow
-            ).random(),
-        )
-    },
-)

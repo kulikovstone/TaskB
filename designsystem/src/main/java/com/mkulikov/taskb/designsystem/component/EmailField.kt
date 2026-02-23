@@ -1,4 +1,4 @@
-package com.mkulikov.taskb.core.designsystem.component
+package com.mkulikov.taskb.designsystem.component
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions

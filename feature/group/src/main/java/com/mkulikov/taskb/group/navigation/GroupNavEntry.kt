@@ -6,6 +6,10 @@ import androidx.navigation3.runtime.EntryProviderScope
 import androidx.navigation3.runtime.NavKey
 import com.mkulikov.taskb.core.navigation.IAppNavigator
 import com.mkulikov.taskb.core.navigation.INavEntry
+import com.mkulikov.taskb.group.screen.add_group.AddGroupScreen
+import com.mkulikov.taskb.group.screen.add_group.AddGroupViewModel
+import com.mkulikov.taskb.group.screen.edit_group.EditGroupScreen
+import com.mkulikov.taskb.group.screen.edit_group.EditGroupViewModel
 import com.mkulikov.taskb.group.screen.group_list.GroupListScreen
 import com.mkulikov.taskb.group.screen.group_list.GroupListViewModel
 import com.mkulikov.taskb.group_api.navigation.GroupRoute
@@ -21,7 +25,27 @@ class GroupNavEntry() : INavEntry {
 
                 GroupListScreen(
                     state = state,
-                    intent = viewModel::handleIntent,
+                    intent = viewModel::onEvent,
+                )
+            }
+
+            entry<GroupInternalRoute.AddGroup> {
+                val viewModel = koinViewModel<AddGroupViewModel>()
+                val state by viewModel.state.collectAsStateWithLifecycle()
+
+                AddGroupScreen(
+                    state = state,
+                    event = viewModel::onEvent,
+                )
+            }
+
+            entry<GroupInternalRoute.EditGroup> {
+                val viewModel = koinViewModel<EditGroupViewModel>()
+                val state by viewModel.state.collectAsStateWithLifecycle()
+
+                EditGroupScreen(
+                    state = state,
+                    event = viewModel::onEvent,
                 )
             }
         }

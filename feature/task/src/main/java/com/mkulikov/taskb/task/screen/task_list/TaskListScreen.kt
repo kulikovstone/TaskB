@@ -11,7 +11,6 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.FilterAlt
 import androidx.compose.material.icons.filled.FilterAltOff
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -25,10 +24,10 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.mkulikov.taskb.designsystem.screen.loading.LoadingScreen
 import com.mkulikov.taskb.designsystem.theme.TaskBTheme
-import com.mkulikov.taskb.task.screen.task_list.compose.TaskItem
+import com.mkulikov.taskb.task.screen.task_list.part.TaskItem
 
 @Composable
-fun TaskListScreen(
+internal fun TaskListScreen(
     state: TaskListState,
     intent: (TaskListIntent) -> Unit,
 ) {

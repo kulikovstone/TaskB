@@ -5,17 +5,19 @@ import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import com.mkulikov.taskb.core.navigation.IAppNavigator
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlin.random.Random
 
-class TaskListViewModel(
+internal class TaskListViewModel(
     val appNavigator: IAppNavigator,
 ) : ViewModel() {
 
-    val state = MutableStateFlow<TaskListState>(TaskListState.Loading)
+    private val _state = MutableStateFlow<TaskListState>(TaskListState.Loading)
+    val state = _state.asStateFlow()
 
     init {
-        state.update { getTaskListMock() }
+        _state.update { getTaskListMock() }
     }
 
     fun handleIntent(intent: TaskListIntent) {
@@ -31,23 +33,23 @@ class TaskListViewModel(
     }
 }
 
-sealed class TaskListState {
+internal sealed interface TaskListState {
 
-    data object Loading : TaskListState()
+    data object Loading : TaskListState
     data class Data(
         val title: String,
         val filtered: Boolean,
         val tasks: List<Task>,
-    ) : TaskListState()
+    ) : TaskListState
 }
 
-sealed class TaskListIntent {
+internal sealed interface TaskListIntent {
 
-    data object Back : TaskListIntent()
-    data object OpenSettings : TaskListIntent()
-    data object OpenFilters : TaskListIntent()
-    data object ClearFilters : TaskListIntent()
-    data object AddTask : TaskListIntent()
-    data class OpenTask(val task: Task) : TaskListIntent()
-    data class ChangeTaskCompletion(val task: Task) : TaskListIntent()
+    data object Back : TaskListIntent
+    data object OpenSettings : TaskListIntent
+    data object OpenFilters : TaskListIntent
+    data object ClearFilters : TaskListIntent
+    data object AddTask : TaskListIntent
+    data class OpenTask(val task: Task) : TaskListIntent
+    data class ChangeTaskCompletion(val task: Task) : TaskListIntent
 }

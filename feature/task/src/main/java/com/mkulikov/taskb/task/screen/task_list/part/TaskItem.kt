@@ -1,4 +1,4 @@
-package com.mkulikov.taskb.task.screen.task_list.compose
+package com.mkulikov.taskb.task.screen.task_list.part
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -17,7 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import com.mkulikov.taskb.designsystem.theme.GroupColor
+import com.mkulikov.taskb.designsystem.color.GroupColor
 import com.mkulikov.taskb.designsystem.theme.TaskBTheme
 import kotlin.random.Random
 
@@ -61,7 +61,7 @@ private fun TaskItemPreview() {
     TaskBTheme {
         TaskItem(
             name = "Погладить кота",
-            color = GroupColor.green,
+            color = GroupColor.Green.color,
             isCompleted = Random.nextBoolean(),
             changeStatusCompletion = {},
             openTask = {},

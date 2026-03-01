@@ -1,6 +1,6 @@
 package com.mkulikov.taskb.task.screen.task_list
 
-import com.mkulikov.taskb.designsystem.theme.GroupColor
+import com.mkulikov.taskb.designsystem.color.GroupColor
 import kotlin.random.Random
 
 internal fun getTaskListMock() = TaskListState.Data(
@@ -24,10 +24,10 @@ internal fun getTaskListMock() = TaskListState.Data(
                 "Поспать после обеда",
             ).random(),
             color = listOf(
-                GroupColor.green,
-                GroupColor.blue,
-                GroupColor.red,
-                GroupColor.amber,
+                GroupColor.random().color,
+                GroupColor.random().color,
+                GroupColor.random().color,
+                GroupColor.random().color,
                 null,
                 null,
                 null,

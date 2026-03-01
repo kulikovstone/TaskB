@@ -26,13 +26,19 @@ fun HomeScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Button(onClick = { intent(StartIntent.OpenGroups) }) {
-                Text(text = "Group")
+                Text(text = "Goals")
+            }
+            Spacer(
+                modifier = Modifier.height(30.dp)
+            )
+            Button(onClick = { intent(StartIntent.OpenGroups) }) {
+                Text(text = "Groups")
             }
             Spacer(
                 modifier = Modifier.height(30.dp)
             )
             Button(onClick = { intent(StartIntent.OpenTasks) }) {
-                Text(text = "Task")
+                Text(text = "Tasks")
             }
         }
     }

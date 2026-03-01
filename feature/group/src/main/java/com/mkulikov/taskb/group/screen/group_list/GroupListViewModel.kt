@@ -1,26 +1,30 @@
 package com.mkulikov.taskb.group.screen.group_list
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.mkulikov.taskb.core.navigation.IAppNavigator
+import com.mkulikov.taskb.group.navigation.GroupInternalRoute
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
 class GroupListViewModel(
     val appNavigator: IAppNavigator,
 ) : ViewModel() {
 
-    val state = MutableStateFlow<GroupListState>(GroupListState.Loading)
+    private val _state = MutableStateFlow<GroupListState>(GroupListState.Loading)
+    val state = _state.asStateFlow()
 
     init {
-        state.update { getGroupLisMock() }
+        _state.update { getGroupLisMock() }
     }
 
-    fun handleIntent(intent: GroupListIntent) {
-        when (intent) {
-            GroupListIntent.Back -> appNavigator.pop()
-            GroupListIntent.AddGroup -> Log.w("!!!", "AddGroup")
-            is GroupListIntent.OpenGroup -> Log.w("!!!", "OpenGroup")
+    fun onEvent(event: GroupListEvent) {
+        when (event) {
+            GroupListEvent.Back -> appNavigator.pop()
+            GroupListEvent.AddGroup -> appNavigator.push(GroupInternalRoute.AddGroup)
+            is GroupListEvent.EditGroup -> appNavigator.push(
+                GroupInternalRoute.EditGroup(event.groupId)
+            )
         }
     }
 }
@@ -35,9 +39,9 @@ sealed class GroupListState {
     ) : GroupListState()
 }
 
-sealed class GroupListIntent {
+sealed class GroupListEvent {
 
-    data object Back : GroupListIntent()
-    data object AddGroup : GroupListIntent()
-    data class OpenGroup(val group: Group) : GroupListIntent()
+    data object Back : GroupListEvent()
+    data object AddGroup : GroupListEvent()
+    data class EditGroup(val groupId: Int) : GroupListEvent()
 }

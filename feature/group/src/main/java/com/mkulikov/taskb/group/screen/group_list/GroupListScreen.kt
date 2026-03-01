@@ -23,12 +23,12 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.mkulikov.taskb.designsystem.screen.loading.LoadingScreen
 import com.mkulikov.taskb.designsystem.theme.TaskBTheme
-import com.mkulikov.taskb.group.screen.group_list.compose.GroupItem
+import com.mkulikov.taskb.group.screen.group_list.part.GroupItem
 
 @Composable
 fun GroupListScreen(
     state: GroupListState,
-    intent: (GroupListIntent) -> Unit,
+    intent: (GroupListEvent) -> Unit,
 ) {
 
     when (state) {
@@ -48,14 +48,14 @@ fun GroupListScreen(
 private fun GroupListContent(
     title: String,
     groupList: List<Group>,
-    intent: (GroupListIntent) -> Unit,
+    intent: (GroupListEvent) -> Unit,
 ) {
     Scaffold(
         contentWindowInsets = WindowInsets.statusBars,
         topBar = {
             TopAppBar(
                 navigationIcon = {
-                    IconButton(onClick = { intent(GroupListIntent.Back) }) {
+                    IconButton(onClick = { intent(GroupListEvent.Back) }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = "ArrowBack",
@@ -76,7 +76,7 @@ private fun GroupListContent(
                             contentDescription = "Filters",
                         )
                     }
-                    IconButton(onClick = { intent(GroupListIntent.AddGroup) }) {
+                    IconButton(onClick = { intent(GroupListEvent.AddGroup) }) {
                         Icon(
                             imageVector = Icons.Filled.Add,
                             contentDescription = "Add",
@@ -97,7 +97,7 @@ private fun GroupListContent(
                 GroupItem(
                     name = group.name,
                     color = group.color,
-                    openGroup = { intent(GroupListIntent.OpenGroup(group)) },
+                    openGroup = { intent(GroupListEvent.EditGroup(group.id)) },
                 )
             }
         }

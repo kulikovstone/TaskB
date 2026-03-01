@@ -1,4 +1,4 @@
-package com.mkulikov.taskb.group.screen.group_list.compose
+package com.mkulikov.taskb.group.screen.group_list.part
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -16,8 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import com.mkulikov.taskb.designsystem.theme.GroupColor
-import com.mkulikov.taskb.designsystem.theme.lightGreen400
+import com.mkulikov.taskb.designsystem.color.GroupColor
 import com.mkulikov.taskb.designsystem.theme.TaskBTheme
 
 @Composable
@@ -55,7 +54,7 @@ private fun GroupItemPreview() {
     TaskBTheme {
         GroupItem(
             name = "TaskB",
-            color = GroupColor.blue,
+            color = GroupColor.Blue.color,
             openGroup = {},
         )
     }

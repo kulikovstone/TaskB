@@ -4,8 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mkulikov.taskb.base.createIf
 import com.mkulikov.taskb.base.now
-import com.mkulikov.taskb.feature.task_data.database.Group
-import com.mkulikov.taskb.feature.task_data.database.Task
+import com.mkulikov.taskb.group_api.database.GroupEntity
 import com.mkulikov.taskb.task.ext.isCompleted
 import com.mkulikov.taskb.task.ext.isGroup
 import com.mkulikov.taskb.task.ext.isToday
@@ -13,6 +12,7 @@ import com.mkulikov.taskb.task.ext.isWithoutGroup
 import com.mkulikov.taskb.task.holder.IGroupDataHolder
 import com.mkulikov.taskb.task.holder.ITaskDataHolder
 import com.mkulikov.taskb.task.repository.IMainRepository
+import com.mkulikov.taskb.task_api.database.TaskEntity
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
@@ -66,7 +66,7 @@ class TaskViewModel(
     ) { groups, tasks, selected, counts, filter ->
         MainState.Data(
             groups = groups.sortedBy { it.name },
-            tasks = tasks,
+            taskEntities = tasks,
             selected = selected,
             counts = counts,
             filter = filter,
@@ -86,9 +86,9 @@ class TaskViewModel(
                 is MainIntent.SelectDefaultGroup -> selectDefaultGroup(intent.taskFilter)
 
                 is MainIntent.AddTask -> addTask(intent.name, intent.groupId)
-                is MainIntent.RemoveTask -> removeTask(intent.task)
-                is MainIntent.ChangeTaskCompletion -> changeTaskCompletion(intent.task)
-                is MainIntent.SelectTask -> taskSelection(intent.task)
+                is MainIntent.RemoveTask -> removeTask(intent.taskEntity)
+                is MainIntent.ChangeTaskCompletion -> changeTaskCompletion(intent.taskEntity)
+                is MainIntent.SelectTask -> taskSelection(intent.taskEntity)
             }
         }
     }
@@ -96,34 +96,34 @@ class TaskViewModel(
     private suspend fun addTask(name: String, groupId: Int?) {
         taskHolder.unselectTask()
         repository.addTask(
-            Task(
+            TaskEntity(
                 name = name,
                 groupId = groupId,
                 targetDate = createIf(filter.value == TaskFilter.Today) {
                     LocalDate.now()
-                }
+                } as String?
             )
         )
     }
 
-    private suspend fun removeTask(task: Task) {
-        repository.removeTask(task)
+    private suspend fun removeTask(taskEntity: TaskEntity) {
+        repository.removeTask(taskEntity)
     }
 
-    private suspend fun changeTaskCompletion(task: Task) {
-        val isCompleted = !task.isCompleted()
+    private suspend fun changeTaskCompletion(taskEntity: TaskEntity) {
+        val isCompleted = !taskEntity.isCompleted()
         repository.updateTask(
-            task.copy(
-                completedAt = if (isCompleted) LocalDateTime.now() else null,
+            taskEntity.copy(
+                completedAt = (if (isCompleted) LocalDateTime.now() else null) as String?,
             )
         )
     }
 
-    private fun taskSelection(task: Task) {
-        taskHolder.changeSelection(task)
+    private fun taskSelection(taskEntity: TaskEntity) {
+        taskHolder.changeSelection(taskEntity)
     }
 
-    private fun groupSelection(group: Group) {
+    private fun groupSelection(group: GroupEntity) {
         filter.value = TaskFilter.Group(group.id)
         taskHolder.unselectTask()
         groupHolder.selectGroup(group)
@@ -135,7 +135,7 @@ class TaskViewModel(
         taskHolder.unselectTask()
     }
 
-    private fun List<Task>.filter(filter: TaskFilter): List<Task> {
+    private fun List<TaskEntity>.filter(filter: TaskFilter): List<TaskEntity> {
         return filter {
             when (filter) {
                 TaskFilter.Uncompleted -> !it.isCompleted()
@@ -147,7 +147,7 @@ class TaskViewModel(
         }
     }
 
-    private fun List<Task>.sort(): List<Task> {
+    private fun List<TaskEntity>.sort(): List<TaskEntity> {
         return sortedByDescending { it.createdAt }
     }
 }
@@ -156,8 +156,8 @@ sealed class MainState {
 
     data object Loading : MainState()
     data class Data(
-        val groups: List<Group>,
-        val tasks: List<Task>,
+        val groups: List<GroupEntity>,
+        val taskEntities: List<TaskEntity>,
         val selected: Selected,
         val counts: Counts,
         val filter: TaskFilter,
@@ -165,20 +165,20 @@ sealed class MainState {
 }
 
 data class Selected(
-    val group: Group? = null,
-    val task: Task? = null,
+    val group: GroupEntity? = null,
+    val taskEntity: TaskEntity? = null,
 )
 
 sealed class MainIntent {
 
     data object AddGroup : MainIntent()
-    data class EditGroup(val group: Group) : MainIntent()
+    data class EditGroup(val group: GroupEntity) : MainIntent()
 
-    data class SelectGroup(val group: Group) : MainIntent()
+    data class SelectGroup(val group: GroupEntity) : MainIntent()
     data class SelectDefaultGroup(val taskFilter: TaskFilter) : MainIntent()
 
     data class AddTask(val name: String, val groupId: Int?) : MainIntent()
-    data class RemoveTask(val task: Task) : MainIntent()
-    data class ChangeTaskCompletion(val task: Task) : MainIntent()
-    data class SelectTask(val task: Task) : MainIntent()
+    data class RemoveTask(val taskEntity: TaskEntity) : MainIntent()
+    data class ChangeTaskCompletion(val taskEntity: TaskEntity) : MainIntent()
+    data class SelectTask(val taskEntity: TaskEntity) : MainIntent()
 }

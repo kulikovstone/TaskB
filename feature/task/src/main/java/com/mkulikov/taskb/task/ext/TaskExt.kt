@@ -1,19 +1,20 @@
 package com.mkulikov.taskb.task.ext
 
-import com.mkulikov.taskb.feature.task_data.database.Task
+import com.mkulikov.taskb.task_api.database.TaskEntity
 import com.mkulikov.taskb.base.now
 import kotlinx.datetime.LocalDate
 
-fun Task.isCompleted(): Boolean = completedAt != null
+fun TaskEntity.isCompleted(): Boolean = completedAt != null
 
-fun Task.isToday(): Boolean {
-    return !isCompleted() && targetDate != null && targetDate!! <= LocalDate.now()
+fun TaskEntity.isToday(): Boolean {
+//    return !isCompleted() && targetDate != null && targetDate!! <= LocalDate.now()
+    return false
 }
 
-fun Task.isWithoutGroup(): Boolean {
+fun TaskEntity.isWithoutGroup(): Boolean {
     return !isCompleted() && groupId == null
 }
 
-fun Task.isGroup(id: Int): Boolean {
+fun TaskEntity.isGroup(id: Int): Boolean {
     return !isCompleted() && groupId == id
 }

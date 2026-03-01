@@ -1,9 +1,10 @@
 package com.mkulikov.taskb.task.screen_old.add_group
 
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mkulikov.taskb.feature.task_data.database.Group
+import com.mkulikov.taskb.group_api.database.GroupEntity
 import com.mkulikov.taskb.task.repository.IMainRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
@@ -36,9 +37,9 @@ class AddGroupViewModel(
     private suspend fun addGroup(name: String, color: Color) {
         state.update { AddGroupState.Loading }
         repository.addGroup(
-            Group(
+            GroupEntity(
                 name = name,
-                color = color,
+                color = color.toArgb(),
             )
         )
         toBack?.invoke()

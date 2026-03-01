@@ -1,6 +1,7 @@
 package com.mkulikov.taskb.task.screen_old.edit_group
 
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mkulikov.taskb.task.repository.IMainRepository
@@ -19,7 +20,7 @@ class EditGroupViewModel(
     val state = MutableStateFlow<EditGroupState>(
         EditGroupState.Data(
             oldName = group.value?.name.orEmpty(),
-            selectedColor = group.value?.color ?: Color.Transparent,
+            selectedColor = Color.Transparent,
         )
     )
 
@@ -61,9 +62,9 @@ class EditGroupViewModel(
     private suspend fun editGroup(name: String, color: Color) {
         state.update { EditGroupState.Loading }
         group.value?.let { group ->
-            if (group.name != name || group.color != color) {
+            if (group.name != name) {
                 repository.updateGroup(
-                    group.copy(name = name, color = color)
+                    group.copy(name = name, color = color.toArgb())
                 )
             }
         }

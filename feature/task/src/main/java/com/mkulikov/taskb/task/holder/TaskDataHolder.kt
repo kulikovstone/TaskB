@@ -1,6 +1,6 @@
 package com.mkulikov.taskb.task.holder
 
-import com.mkulikov.taskb.feature.task_data.database.Task
+import com.mkulikov.taskb.task_api.database.TaskEntity
 import com.mkulikov.taskb.task.repository.IMainRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -8,13 +8,13 @@ import kotlinx.coroutines.flow.update
 
 interface ITaskDataHolder {
 
-    val tasks: Flow<List<Task>>
+    val tasks: Flow<List<TaskEntity>>
 
-    val selected: MutableStateFlow<Task?>
+    val selected: MutableStateFlow<TaskEntity?>
 
-    fun changeSelection(task: Task)
+    fun changeSelection(taskEntity: TaskEntity)
 
-    fun selectTask(task: Task)
+    fun selectTask(taskEntity: TaskEntity)
 
     fun unselectTask()
 }
@@ -25,17 +25,17 @@ class TaskDataHolder(
 
     override val tasks = repository.tasks
 
-    override val selected = MutableStateFlow<Task?>(null)
+    override val selected = MutableStateFlow<TaskEntity?>(null)
 
-    override fun changeSelection(task: Task) {
-        if (selected.value == task) {
+    override fun changeSelection(taskEntity: TaskEntity) {
+        if (selected.value == taskEntity) {
             unselectTask()
         } else {
-            selectTask(task)
+            selectTask(taskEntity)
         }
     }
 
-    override fun selectTask(task: Task) = selected.update { task }
+    override fun selectTask(taskEntity: TaskEntity) = selected.update { taskEntity }
 
     override fun unselectTask() = selected.update { null }
 }

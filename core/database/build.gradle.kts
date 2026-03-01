@@ -18,7 +18,8 @@ android {
 }
 
 dependencies {
-    implementation(project(":feature:task-data"))
+    implementation(project(":feature:task-api"))
+    implementation(project(":feature:group-api"))
 
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)

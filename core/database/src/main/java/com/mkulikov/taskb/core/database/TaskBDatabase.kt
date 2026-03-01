@@ -4,24 +4,20 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.room.TypeConverters
 import androidx.room.migration.Migration
 import com.mkulikov.taskb.core.database.TaskBDatabase.Companion.DB_NAME
-import com.mkulikov.taskb.feature.task_data.database.Group
-import com.mkulikov.taskb.feature.task_data.database.GroupDao
-import com.mkulikov.taskb.feature.task_data.database.Task
-import com.mkulikov.taskb.feature.task_data.database.TaskDao
-import com.mkulikov.taskb.feature.task_data.database.converter.TaskConverter
+import com.mkulikov.taskb.group_api.database.GroupDao
+import com.mkulikov.taskb.group_api.database.GroupEntity
+import com.mkulikov.taskb.task_api.database.TaskEntity
+import com.mkulikov.taskb.task_api.database.TaskDao
 
 @Database(
     entities = [
-        Group::class, Task::class, // Task module
+        GroupEntity::class,
+        TaskEntity::class,
     ],
     version = TaskBDatabase.VERSION,
     exportSchema = true,
-)
-@TypeConverters(
-    TaskConverter::class, // Task module
 )
 abstract class TaskBDatabase : RoomDatabase() {
 

@@ -1,5 +1,6 @@
 package com.mkulikov.taskb.group.di
 
+import com.mkulikov.taskb.core.database.TaskBDatabase
 import com.mkulikov.taskb.core.navigation.INavEntry
 import com.mkulikov.taskb.group.navigation.GroupNavEntry
 import com.mkulikov.taskb.group.screen.add_group.AddGroupViewModel
@@ -13,7 +14,6 @@ import org.koin.dsl.module
 fun groupModules() = listOf(common, navigation, database)
 
 internal val common = module {
-
     viewModelOf(::GroupListViewModel)
     viewModelOf(::AddGroupViewModel)
     viewModelOf(::EditGroupViewModel)
@@ -24,7 +24,5 @@ internal val navigation = module {
 }
 
 internal val database = module {
-//    single { get<TaskBDatabase>().groupDao() }
-
-//    single<Migration> { TaskMigration.MIGRATION_1_2 }
+    single { get<TaskBDatabase>().groupDao() }
 }

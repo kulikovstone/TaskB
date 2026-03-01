@@ -1,9 +1,7 @@
 package com.mkulikov.taskb.task.di
 
-import androidx.room.migration.Migration
 import com.mkulikov.taskb.core.database.TaskBDatabase
 import com.mkulikov.taskb.core.navigation.INavEntry
-import com.mkulikov.taskb.feature.task_data.database.migration.TaskMigration
 import com.mkulikov.taskb.task.holder.GroupDataHolder
 import com.mkulikov.taskb.task.holder.IGroupDataHolder
 import com.mkulikov.taskb.task.holder.ITaskDataHolder
@@ -35,7 +33,6 @@ internal val navigation = module {
 }
 
 internal val database = module {
-    single { get<TaskBDatabase>().groupDao() }
     single { get<TaskBDatabase>().taskDao() }
 
 //    single<Migration> { TaskMigration.MIGRATION_1_2 }

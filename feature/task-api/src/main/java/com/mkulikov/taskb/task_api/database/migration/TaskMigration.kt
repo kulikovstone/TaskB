@@ -1,4 +1,4 @@
-package com.mkulikov.taskb.feature.task_data.database.migration
+package com.mkulikov.taskb.task_api.database.migration
 
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase

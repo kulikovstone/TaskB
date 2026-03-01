@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <plurals name="active_tasks_count">
+        <item quantity="one">%d active task</item>
+        <item quantity="other">%d active tasks</item>
+    </plurals>
+
+    <plurals name="completed_tasks_count">
+        <item quantity="one">%d completed task</item>
+        <item quantity="other">%d completed tasks</item>
+    </plurals>
+
+    <plurals name="deleted_tasks_count">
+        <item quantity="one">%d deleted task</item>
+        <item quantity="other">%d deleted tasks</item>
+    </plurals>
+
+</resources>

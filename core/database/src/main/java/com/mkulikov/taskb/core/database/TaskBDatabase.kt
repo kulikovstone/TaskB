@@ -45,7 +45,7 @@ internal fun createDatabase(
     callbacks.forEach(builder::addCallback)
 
     builder.fallbackToDestructiveMigrationOnDowngrade(true)
-//    builder.fallbackToDestructiveMigration(true)
+    builder.fallbackToDestructiveMigration(true)
 
     return builder.build()
 }

@@ -7,22 +7,31 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBars
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.mkulikov.taskb.designsystem.color.GroupColor
 import com.mkulikov.taskb.designsystem.dialog.MessageDialog
-import com.mkulikov.taskb.designsystem.field.EnterNameField
 import com.mkulikov.taskb.designsystem.screen.loading.LoadingScreen
 import com.mkulikov.taskb.designsystem.theme.TaskBTheme
 import com.mkulikov.taskb.group.screen.part.GroupColorBlock
@@ -47,6 +56,8 @@ private fun AddGroupContent(
     state: AddGroupState,
     event: (AddGroupEvent) -> Unit,
 ) {
+    val focusRequester = remember { FocusRequester() }
+
     Scaffold(
         contentWindowInsets = WindowInsets.statusBars,
         topBar = {
@@ -67,7 +78,7 @@ private fun AddGroupContent(
                 actions = {
                     IconButton(
                         onClick = { event(AddGroupEvent.SaveGroup) },
-                        enabled = state.name.isNotEmpty()
+                        enabled = state.normalizedName.isNotEmpty(),
                     ) {
                         Icon(
                             imageVector = Icons.Filled.Done,
@@ -86,11 +97,35 @@ private fun AddGroupContent(
         ) {
             Spacer(modifier = Modifier.height(8.dp))
 
-            EnterNameField(
-                name = state.name,
-                placeholder = "Enter group name",
+            OutlinedTextField(
+                value = state.name,
                 onValueChange = { event(AddGroupEvent.NameChanged(it)) },
-                onClear = { event(AddGroupEvent.NameChanged("")) },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .focusRequester(focusRequester),
+                singleLine = true,
+                placeholder = {
+                    Text("Enter group name")
+                },
+                trailingIcon = {
+                    if (state.name.isNotEmpty()) {
+                        IconButton(
+                            onClick = { event(AddGroupEvent.NameChanged("")) },
+                        ) {
+                            Icon(
+                                imageVector = Icons.Filled.Clear,
+                                contentDescription = "Clear"
+                            )
+                        }
+                    }
+                },
+                keyboardOptions = KeyboardOptions(
+                    imeAction = ImeAction.Done,
+                    capitalization = KeyboardCapitalization.Sentences,
+                ),
+                keyboardActions = KeyboardActions(
+                    onDone = { event(AddGroupEvent.SaveGroup) }
+                ),
             )
 
             GroupColorBlock(
@@ -104,9 +139,13 @@ private fun AddGroupContent(
         state.nameConflictMessage?.let { message ->
             MessageDialog(
                 message = message,
-                onDismiss = { event(AddGroupEvent.ClearDialogs) }
+                onDismiss = { event(AddGroupEvent.ClearDialogs) },
             )
         }
+    }
+
+    LaunchedEffect(Unit) {
+        focusRequester.requestFocus()
     }
 }
 

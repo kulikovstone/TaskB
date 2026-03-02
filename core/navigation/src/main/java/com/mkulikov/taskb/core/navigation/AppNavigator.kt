@@ -5,8 +5,8 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.navigation3.runtime.NavKey
 
 interface IAppNavigator {
-    fun push(key: NavKey)
-    fun pop()
+    fun navigate(key: NavKey)
+    fun back()
 }
 
 @Stable
@@ -14,11 +14,11 @@ internal class AppNavigator(
     private val backStack: SnapshotStateList<NavKey>
 ) : IAppNavigator {
 
-    override fun push(key: NavKey) {
+    override fun navigate(key: NavKey) {
         backStack.add(key)
     }
 
-    override fun pop() {
+    override fun back() {
         if (backStack.size <= 1) return
         backStack.removeLastOrNull()
     }

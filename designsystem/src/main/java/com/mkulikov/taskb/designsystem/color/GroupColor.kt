@@ -22,11 +22,15 @@ import com.mkulikov.taskb.designsystem.theme.purple400
 import com.mkulikov.taskb.designsystem.theme.red400
 import com.mkulikov.taskb.designsystem.theme.teal400
 import com.mkulikov.taskb.designsystem.theme.yellow400
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 
 enum class GroupColor(
     val color: Color,
     @StringRes val colorNameRes: Int
 ) {
+    Transparent(Color.Transparent, R.string.transparent),
+
     Red(red400, R.string.red),
     Pink(pink400, R.string.pink),
     Purple(purple400, R.string.purple),
@@ -49,8 +53,16 @@ enum class GroupColor(
 
     companion object {
 
-        fun getAllColors(): List<GroupColor> = entries
+        private val colorMap: Map<Color, GroupColor> by lazy {
+            entries.associateBy { it.color }
+        }
+
+        fun getAllColors(): ImmutableList<GroupColor> = entries.toImmutableList()
 
         fun random(): GroupColor = getAllColors().random()
+
+        fun fromColor(color: Color): GroupColor {
+            return colorMap[color] ?: Transparent
+        }
     }
 }

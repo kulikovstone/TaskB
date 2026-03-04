@@ -26,6 +26,7 @@ lifecycleViewmodelNavigation3 = "2.10.0"
 # KotlinX / Serialization / DateTime
 datetime = "0.7.1"
 serialization = "1.10.0"
+immutable = "0.4.0"
 
 # Data / DI / Debug / Network
 room = "2.8.4"
@@ -69,6 +70,7 @@ lifecycle-viewmodel-navigation3 = { module = "androidx.lifecycle:lifecycle-viewm
 # KotlinX / Serialization / DateTime
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "datetime" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serialization" }
+kotlinx-collections-immutable = { group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable", version.ref = "immutable" }
 
 # Room (DB)
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }

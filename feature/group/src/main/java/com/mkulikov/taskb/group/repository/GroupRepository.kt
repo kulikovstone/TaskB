@@ -1,4 +1,4 @@
-package com.mkulikov.taskb.group.database
+package com.mkulikov.taskb.group.repository
 
 import com.mkulikov.taskb.group_api.database.GroupDao
 import com.mkulikov.taskb.group_api.database.GroupEntity
@@ -9,7 +9,7 @@ internal class GroupRepository(
     private val groupDao: GroupDao,
 ) : IGroupRepository {
 
-    override val groups: Flow<List<GroupEntity>> = groupDao.getGroups()
+    override val groupEntities: Flow<List<GroupEntity>> = groupDao.getGroups()
 
     override suspend fun addGroup(name: String, color: Int) {
         groupDao.insert(
@@ -22,5 +22,13 @@ internal class GroupRepository(
 
     override suspend fun groupExists(name: String): Boolean {
         return groupDao.groupExists(name)
+    }
+
+    override suspend fun getGroupById(groupId: Int): GroupEntity? {
+        return groupDao.getGroupById(groupId)
+    }
+
+    override suspend fun deleteById(groupId: Int) {
+        groupDao.getGroupById(groupId)
     }
 }

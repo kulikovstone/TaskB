@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface IGroupRepository {
 
-    val groups: Flow<List<GroupEntity>>
+    val groupEntities: Flow<List<GroupEntity>>
 
     suspend fun addGroup(
         name: String,
@@ -12,4 +12,8 @@ interface IGroupRepository {
     )
 
     suspend fun groupExists(name: String): Boolean
+
+    suspend fun getGroupById(groupId: Int): GroupEntity?
+
+    suspend fun deleteById(groupId: Int)
 }

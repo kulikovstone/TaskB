@@ -26,36 +26,31 @@ import com.mkulikov.taskb.designsystem.theme.TaskBTheme
 import com.mkulikov.taskb.group.screen.group_list.part.GroupItem
 
 @Composable
-fun GroupListScreen(
+internal fun GroupListScreen(
     state: GroupListState,
-    intent: (GroupListEvent) -> Unit,
+    event: (GroupListEvent) -> Unit,
 ) {
-
-    when (state) {
-        is GroupListState.Loading -> LoadingScreen()
-        is GroupListState.Data -> {
-            GroupListContent(
-                title = state.title,
-                groupList = state.groups,
-                intent = intent,
-            )
-        }
+    when {
+        state.isLoading -> LoadingScreen()
+        else -> GroupListContent(
+            state = state,
+            event = event,
+        )
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun GroupListContent(
-    title: String,
-    groupList: List<Group>,
-    intent: (GroupListEvent) -> Unit,
+    state: GroupListState,
+    event: (GroupListEvent) -> Unit,
 ) {
     Scaffold(
         contentWindowInsets = WindowInsets.statusBars,
         topBar = {
             TopAppBar(
                 navigationIcon = {
-                    IconButton(onClick = { intent(GroupListEvent.Back) }) {
+                    IconButton(onClick = { event(GroupListEvent.Back) }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = "ArrowBack",
@@ -64,7 +59,7 @@ private fun GroupListContent(
                 },
                 title = {
                     Text(
-                        text = title,
+                        text = "Groups",
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                     )
@@ -76,7 +71,7 @@ private fun GroupListContent(
                             contentDescription = "Filters",
                         )
                     }
-                    IconButton(onClick = { intent(GroupListEvent.AddGroup) }) {
+                    IconButton(onClick = { event(GroupListEvent.AddGroup) }) {
                         Icon(
                             imageVector = Icons.Filled.Add,
                             contentDescription = "Add",
@@ -91,13 +86,13 @@ private fun GroupListContent(
             contentPadding = PaddingValues(bottom = 50.dp),
         ) {
             items(
-                items = groupList,
+                items = state.groups,
                 key = { it.id },
             ) { group ->
                 GroupItem(
                     name = group.name,
-                    color = group.color,
-                    openGroup = { intent(GroupListEvent.EditGroup(group.id)) },
+                    groupColor = group.color,
+                    openGroup = { event(GroupListEvent.EditGroup(group.id)) },
                 )
             }
         }
@@ -107,8 +102,8 @@ private fun GroupListContent(
 @Composable
 @PreviewLightDark
 private fun GroupListScreenPreview() = TaskBTheme {
-    GroupListScreen (
-        state = getGroupLisMock(),
-        intent = {},
-    )
+//    GroupListScreen (
+//        state = getGroupLisMock(),
+//        intent = {},
+//    )
 }

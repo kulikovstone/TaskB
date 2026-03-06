@@ -2,7 +2,7 @@ package com.mkulikov.taskb.group.interactor
 
 import androidx.compose.ui.graphics.toArgb
 import com.mkulikov.taskb.designsystem.color.GroupColor
-import com.mkulikov.taskb.group.interactor.mapper.GroupEntityMapper
+import com.mkulikov.taskb.group.interactor.mapper.GroupMapper
 import com.mkulikov.taskb.group.screen.Group
 import com.mkulikov.taskb.group_api.database.IGroupRepository
 import kotlinx.coroutines.flow.Flow
@@ -22,16 +22,18 @@ interface IGroupInteractor {
     suspend fun getGroupById(groupId: Int): Group?
 
     suspend fun deleteById(groupId: Int)
+
+    suspend fun updateGroup(group: Group)
 }
 
 internal class GroupInteractor(
     private val groupRepository: IGroupRepository,
-    private val groupEntityMapper: GroupEntityMapper,
+    private val groupMapper: GroupMapper,
 ) : IGroupInteractor {
 
     override val groups: Flow<List<Group>> = groupRepository.groupEntities.map { groupEntities ->
         groupEntities.map { groupEntity ->
-            groupEntityMapper.mapToGroup(groupEntity)
+            groupMapper.mapToGroup(groupEntity)
         }
     }
 
@@ -51,11 +53,17 @@ internal class GroupInteractor(
 
     override suspend fun getGroupById(groupId: Int): Group? {
         return groupRepository.getGroupById(groupId)?.let { groupEntity ->
-            groupEntityMapper.mapToGroup(groupEntity)
+            groupMapper.mapToGroup(groupEntity)
         }
     }
 
     override suspend fun deleteById(groupId: Int) {
         groupRepository.deleteById(groupId)
+    }
+
+    override suspend fun updateGroup(group: Group) {
+        groupRepository.updateGroup(
+            groupEntity = groupMapper.mapToGroupEntity(group)
+        )
     }
 }

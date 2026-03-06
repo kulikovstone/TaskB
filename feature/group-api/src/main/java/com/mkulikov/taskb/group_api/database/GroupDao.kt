@@ -25,4 +25,10 @@ interface GroupDao {
 
     @Query("SELECT EXISTS(SELECT 1 FROM `groups` WHERE name = :name COLLATE NOCASE)")
     suspend fun groupExists(name: String): Boolean
+
+    @Query("SELECT * FROM `groups` WHERE id = :groupId LIMIT 1")
+    suspend fun getGroupById(groupId: Int): GroupEntity?
+
+    @Query("DELETE FROM `groups` WHERE id = :groupId")
+    suspend fun deleteById(groupId: Int)
 }

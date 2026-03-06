@@ -29,6 +29,10 @@ internal class GroupRepository(
     }
 
     override suspend fun deleteById(groupId: Int) {
-        groupDao.getGroupById(groupId)
+        groupDao.deleteById(groupId)
+    }
+
+    override suspend fun updateGroup(groupEntity: GroupEntity) {
+        groupDao.update(groupEntity)
     }
 }

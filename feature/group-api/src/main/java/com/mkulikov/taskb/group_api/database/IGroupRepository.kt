@@ -16,4 +16,6 @@ interface IGroupRepository {
     suspend fun getGroupById(groupId: Int): GroupEntity?
 
     suspend fun deleteById(groupId: Int)
+
+    suspend fun updateGroup(groupEntity: GroupEntity)
 }

@@ -9,11 +9,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -26,7 +28,6 @@ import com.mkulikov.taskb.designsystem.button.ActionButton
 import com.mkulikov.taskb.designsystem.color.GroupColor
 import com.mkulikov.taskb.designsystem.dialog.ConfirmationDialog
 import com.mkulikov.taskb.designsystem.dialog.MessageDialog
-import com.mkulikov.taskb.designsystem.field.EnterNameField
 import com.mkulikov.taskb.designsystem.screen.loading.LoadingScreen
 import com.mkulikov.taskb.designsystem.theme.TaskBTheme
 import com.mkulikov.taskb.group.screen.edit_group.part.GroupStatisticsBlock
@@ -69,8 +70,8 @@ private fun EditGroupContent(
                 },
                 actions = {
                     IconButton(
-                        onClick = { event(EditGroupEvent.SaveGroup) },
-                        enabled = state.name.isNotEmpty()
+                        onClick = { event(EditGroupEvent.UpdateGroup) },
+                        enabled = state.isDataValid && state.isDataChanged,
                     ) {
                         Icon(
                             imageVector = Icons.Filled.Done,
@@ -89,11 +90,26 @@ private fun EditGroupContent(
         ) {
             Spacer(modifier = Modifier.height(8.dp))
 
-            EnterNameField(
-                name = state.name,
-                placeholder = "Enter group name",
+            OutlinedTextField(
+                value = state.name,
                 onValueChange = { event(EditGroupEvent.NameChanged(it)) },
-                onClear = { event(EditGroupEvent.NameChanged("")) },
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true,
+                placeholder = {
+                    Text("Enter group name")
+                },
+                trailingIcon = {
+                    if (state.name.isNotEmpty()) {
+                        IconButton(
+                            onClick = { event(EditGroupEvent.NameChanged("")) },
+                        ) {
+                            Icon(
+                                imageVector = Icons.Filled.Clear,
+                                contentDescription = "Clear"
+                            )
+                        }
+                    }
+                }
             )
 
             GroupColorBlock(

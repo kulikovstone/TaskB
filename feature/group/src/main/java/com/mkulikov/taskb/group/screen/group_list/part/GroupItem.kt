@@ -13,7 +13,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.mkulikov.taskb.designsystem.color.GroupColor
@@ -22,7 +21,7 @@ import com.mkulikov.taskb.designsystem.theme.TaskBTheme
 @Composable
 fun GroupItem(
     name: String,
-    color: Color,
+    groupColor: GroupColor,
     openGroup: () -> Unit,
 ) = Surface(
     modifier = Modifier
@@ -38,7 +37,7 @@ fun GroupItem(
             modifier = Modifier
                 .defaultMinSize(minHeight = 60.dp)
                 .width(10.dp)
-                .background(color),
+                .background(groupColor.color),
         )
         Text(
             modifier = Modifier
@@ -54,7 +53,7 @@ private fun GroupItemPreview() {
     TaskBTheme {
         GroupItem(
             name = "TaskB",
-            color = GroupColor.Blue.color,
+            groupColor = GroupColor.Blue,
             openGroup = {},
         )
     }

@@ -7,7 +7,8 @@ import androidx.lifecycle.viewModelScope
 import com.mkulikov.taskb.core.navigation.IAppNavigator
 import com.mkulikov.taskb.designsystem.color.GroupColor
 import com.mkulikov.taskb.designsystem.dialog.Message
-import com.mkulikov.taskb.group.dialog.GroupDialog
+import com.mkulikov.taskb.group.interactor.IGroupInteractor
+import com.mkulikov.taskb.group.screen.GroupDialog
 import com.mkulikov.taskb.group_api.database.IGroupRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -16,7 +17,7 @@ import kotlinx.coroutines.launch
 
 internal class AddGroupViewModel(
     private val appNavigator: IAppNavigator,
-    private val groupRepository: IGroupRepository,
+    private val groupInteractor: IGroupInteractor,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(AddGroupState())
@@ -46,7 +47,7 @@ internal class AddGroupViewModel(
     }
 
     private fun saveGroup() = viewModelScope.launch {
-        val groupExists = groupRepository.groupExists(state.value.normalizedName)
+        val groupExists = groupInteractor.groupExists(state.value.normalizedName)
         if (groupExists) {
             _state.update {
                 it.copy(nameConflictMessage = GroupDialog.nameConflictMessage)
@@ -56,9 +57,9 @@ internal class AddGroupViewModel(
 
         _state.update { it.copy(isLoading = true) }
 
-        groupRepository.addGroup(
+        groupInteractor.addGroup(
             name = state.value.normalizedName,
-            color = state.value.groupColor.color.toArgb(),
+            color = state.value.groupColor,
         )
 
         appNavigator.back()

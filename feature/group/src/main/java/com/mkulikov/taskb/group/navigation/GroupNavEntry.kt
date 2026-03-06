@@ -14,6 +14,7 @@ import com.mkulikov.taskb.group.screen.group_list.GroupListScreen
 import com.mkulikov.taskb.group.screen.group_list.GroupListViewModel
 import com.mkulikov.taskb.group_api.navigation.GroupRoute
 import org.koin.androidx.compose.koinViewModel
+import org.koin.core.parameter.parametersOf
 
 class GroupNavEntry() : INavEntry {
 
@@ -25,7 +26,7 @@ class GroupNavEntry() : INavEntry {
 
                 GroupListScreen(
                     state = state,
-                    intent = viewModel::onEvent,
+                    event = viewModel::onEvent,
                 )
             }
 
@@ -39,8 +40,10 @@ class GroupNavEntry() : INavEntry {
                 )
             }
 
-            entry<GroupInternalRoute.EditGroup> {
-                val viewModel = koinViewModel<EditGroupViewModel>()
+            entry<GroupInternalRoute.EditGroup> { route ->
+                val viewModel = koinViewModel<EditGroupViewModel> {
+                    parametersOf(route.groupId)
+                }
                 val state by viewModel.state.collectAsStateWithLifecycle()
 
                 EditGroupScreen(

@@ -7,51 +7,52 @@ import com.mkulikov.taskb.core.navigation.IAppNavigator
 import com.mkulikov.taskb.designsystem.color.GroupColor
 import com.mkulikov.taskb.designsystem.dialog.Confirmation
 import com.mkulikov.taskb.designsystem.dialog.Message
-import com.mkulikov.taskb.group.dialog.GroupDialog
-import kotlinx.coroutines.delay
+import com.mkulikov.taskb.group.interactor.IGroupInteractor
+import com.mkulikov.taskb.group.screen.Group
+import com.mkulikov.taskb.group.screen.GroupDialog
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 internal class EditGroupViewModel(
-    private val appNavigator: IAppNavigator
+    private val groupId: Int,
+    private val appNavigator: IAppNavigator,
+    private val groupInteractor: IGroupInteractor,
 ) : ViewModel() {
-
-    private var groupId: Int? = null
 
     private val _state = MutableStateFlow(EditGroupState())
     val state = _state.asStateFlow()
 
+    private var editingGroup: Group? = null
+
     init {
-        // Получаем группу по groupId, если он не null
-        // Сетим новое значение с данными группы или по умолчанию
-
         viewModelScope.launch {
-            delay(300)
+            groupInteractor.getGroupById(groupId)?.let { group ->
+                editingGroup = group
+            }
 
-            // Или есть
-            _state.update {
-                it.copy(
-                    isLoading = false,
-                    name = "Home work",
-                    groupColor = GroupColor.LightGreen,
-                    statistics = Statistics(
-                        active = 12,
-                        completed = 5,
-                        deleted = 0,
-                    ),
-                )
+            // todo Получить статистику группы
+
+            editingGroup?.let { group ->
+                _state.update {
+                    it.copy(
+                        isLoading = false,
+                        name = group.name,
+                        groupColor = group.color,
+                        statistics = Statistics(),
+                    )
+                }
             }
         }
     }
 
     fun onEvent(event: EditGroupEvent) {
         when (event) {
-            EditGroupEvent.Back -> appNavigator.pop()
+            EditGroupEvent.Back -> appNavigator.back()
             is EditGroupEvent.NameChanged -> nameChanged(event.name)
             is EditGroupEvent.ColorChanged -> colorChanged(event.groupColor)
-            EditGroupEvent.SaveGroup -> saveGroup()
+            EditGroupEvent.UpdateGroup -> updateGroup()
             EditGroupEvent.PrepareDeleteGroup -> prepareDeleteGroup()
             EditGroupEvent.DeleteGroup -> deleteGroup()
             EditGroupEvent.PrepareDeleteGroupWithTasks -> prepareDeleteGroupWithTasks()
@@ -61,30 +62,55 @@ internal class EditGroupViewModel(
     }
 
     private fun nameChanged(name: String) {
-        _state.update { it.copy(name = name) }
-    }
-
-    private fun colorChanged(color: GroupColor) {
-        _state.update { it.copy(groupColor = color) }
-    }
-
-    private fun saveGroup() {
-        // Проверяем, что нет такой задачи
-        val isGroupAlreadyExist = true
-
-        if (isGroupAlreadyExist) {
-            _state.update {
-                it.copy(
-                    nameConflictMessage = GroupDialog.nameConflictMessage,
-                )
-            }
-            return
+        _state.update {
+            it.copy(
+                name = name,
+                isDataValid = name.trim().isNotEmpty(),
+            )
         }
 
-        // Перед сохранением проверяем, что данные изменились (для существующей задачи)
+        updateDataChangeState()
+    }
 
-        // Сохраняем через репозиторий
-        // данные берем из текущего стейта
+    private fun colorChanged(groupColor: GroupColor) {
+        _state.update {
+            it.copy(
+                groupColor = groupColor,
+            )
+        }
+
+        updateDataChangeState()
+    }
+
+    private fun updateDataChangeState() {
+        val isDataChanged = isNameChanged() || isColorChanged()
+        _state.update { it.copy(isDataChanged = isDataChanged) }
+    }
+
+    private fun updateGroup() = viewModelScope.launch {
+        if (isNameChanged()) {
+            val groupExists = groupInteractor.groupExists(state.value.name.trim())
+            if (groupExists) {
+                _state.update {
+                    it.copy(
+                        nameConflictMessage = GroupDialog.nameConflictMessage,
+                    )
+                }
+                return@launch
+            }
+        }
+
+        _state.update { it.copy(isLoading = true) }
+
+        groupInteractor.updateGroup(
+            Group(
+                id = groupId,
+                name = state.value.name.trim(),
+                color = state.value.groupColor,
+            )
+        )
+
+        appNavigator.back()
     }
 
     private fun prepareDeleteGroup() {
@@ -95,12 +121,13 @@ internal class EditGroupViewModel(
         }
     }
 
-    private fun deleteGroup() {
-        // Удаляем группу из всех связанных задач
-        // Удаляем группу
+    private fun deleteGroup() = viewModelScope.launch {
+        _state.update { it.copy(isLoading = true) }
 
-        // Возвращаемся назад
-//        appNavigator.pop()
+        // todo Удаляем группу из всех связанных задач
+
+        groupInteractor.deleteById(groupId)
+        appNavigator.back()
     }
 
     private fun prepareDeleteGroupWithTasks() {
@@ -111,12 +138,13 @@ internal class EditGroupViewModel(
         }
     }
 
-    private fun deleteGroupWithTasks() {
-        // Удаляем все связанные задачи
-        // Удаляем группу
+    private fun deleteGroupWithTasks() = viewModelScope.launch {
+        _state.update { it.copy(isLoading = true) }
 
-        // Возвращаемся назад
-//        appNavigator.pop()
+        // todo Удаляем все связанные задачи
+
+        groupInteractor.deleteById(groupId)
+        appNavigator.back()
     }
 
     private fun clearDialogs() {
@@ -128,11 +156,21 @@ internal class EditGroupViewModel(
             )
         }
     }
+
+    private fun isNameChanged(): Boolean {
+        return editingGroup?.name != state.value.name.trim()
+    }
+
+    private fun isColorChanged(): Boolean {
+        return editingGroup?.color?.name != state.value.groupColor.name
+    }
 }
 
 @Immutable
 internal data class EditGroupState(
     val isLoading: Boolean = true,
+    val isDataChanged: Boolean = false,
+    val isDataValid: Boolean = true,
     val name: String = "",
     val groupColor: GroupColor = GroupColor.random(),
     val statistics: Statistics = Statistics(),
@@ -161,7 +199,7 @@ internal sealed interface EditGroupEvent {
 
     data class ColorChanged(val groupColor: GroupColor) : EditGroupEvent
 
-    data object SaveGroup : EditGroupEvent
+    data object UpdateGroup : EditGroupEvent
 
     data object PrepareDeleteGroup : EditGroupEvent
 

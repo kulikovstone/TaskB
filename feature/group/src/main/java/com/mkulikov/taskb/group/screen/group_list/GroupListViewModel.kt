@@ -1,43 +1,66 @@
 package com.mkulikov.taskb.group.screen.group_list
 
+import androidx.compose.runtime.Immutable
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.mkulikov.taskb.core.navigation.IAppNavigator
+import com.mkulikov.taskb.group.interactor.IGroupInteractor
 import com.mkulikov.taskb.group.navigation.GroupInternalRoute
+import com.mkulikov.taskb.group.screen.Group
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 
-class GroupListViewModel(
-    val appNavigator: IAppNavigator,
+internal class GroupListViewModel(
+    private val appNavigator: IAppNavigator,
+    private val groupInteractor: IGroupInteractor,
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow<GroupListState>(GroupListState.Loading)
+    private val _state = MutableStateFlow(GroupListState())
     val state = _state.asStateFlow()
 
     init {
-        _state.update { getGroupLisMock() }
+        observeGroups()
+    }
+
+    private fun observeGroups() {
+        groupInteractor.groups
+            .onEach { groups ->
+                _state.update {
+                    it.copy(
+                        isLoading = false,
+                        groups = groups.toImmutableList(),
+                    )
+                }
+            }
+            .catch { _ ->
+                appNavigator.back()
+            }
+            .launchIn(viewModelScope)
     }
 
     fun onEvent(event: GroupListEvent) {
         when (event) {
-            GroupListEvent.Back -> appNavigator.pop()
-            GroupListEvent.AddGroup -> appNavigator.push(GroupInternalRoute.AddGroup)
-            is GroupListEvent.EditGroup -> appNavigator.push(
-                GroupInternalRoute.EditGroup(event.groupId)
-            )
+            GroupListEvent.Back -> appNavigator.back()
+            GroupListEvent.AddGroup -> appNavigator.navigate(GroupInternalRoute.AddGroup)
+            is GroupListEvent.EditGroup -> {
+                appNavigator.navigate(GroupInternalRoute.EditGroup(event.groupId))
+            }
         }
     }
 }
 
-
-sealed class GroupListState {
-
-    data object Loading : GroupListState()
-    data class Data(
-        val title: String,
-        val groups: List<Group>,
-    ) : GroupListState()
-}
+@Immutable
+internal data class GroupListState(
+    val isLoading: Boolean = true,
+    val groups: ImmutableList<Group> = persistentListOf(),
+)
 
 sealed class GroupListEvent {
 

@@ -1,4 +1,4 @@
-package com.mkulikov.taskb.feature.task_data.database
+package com.mkulikov.taskb.task_api.database
 
 import androidx.room.Dao
 import androidx.room.Delete
@@ -12,14 +12,14 @@ import kotlinx.coroutines.flow.Flow
 interface TaskDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(task: Task)
+    suspend fun insert(taskEntity: TaskEntity)
 
     @Update
-    suspend fun update(task: Task)
+    suspend fun update(taskEntity: TaskEntity)
 
     @Delete
-    suspend fun delete(task: Task)
+    suspend fun delete(taskEntity: TaskEntity)
 
-    @Query("SELECT * FROM tasks")
-    fun getTasks(): Flow<List<Task>>
+    @Query("SELECT * FROM `tasks`")
+    fun getTasks(): Flow<List<TaskEntity>>
 }

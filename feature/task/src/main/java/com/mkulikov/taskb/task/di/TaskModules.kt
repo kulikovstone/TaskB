@@ -2,8 +2,6 @@ package com.mkulikov.taskb.task.di
 
 import com.mkulikov.taskb.core.database.TaskBDatabase
 import com.mkulikov.taskb.core.navigation.INavEntry
-import com.mkulikov.taskb.task.holder.GroupDataHolder
-import com.mkulikov.taskb.task.holder.IGroupDataHolder
 import com.mkulikov.taskb.task.holder.ITaskDataHolder
 import com.mkulikov.taskb.task.holder.TaskDataHolder
 import com.mkulikov.taskb.task.navigation.TaskNavEntry
@@ -22,7 +20,6 @@ fun taskModules() = listOf(common, navigation, database)
 internal val common = module {
 
     singleOf(::MainRepository).bind(IMainRepository::class)
-    singleOf(::GroupDataHolder).bind(IGroupDataHolder::class)
     singleOf(::TaskDataHolder).bind(ITaskDataHolder::class)
 
     viewModelOf(::TaskListViewModel)

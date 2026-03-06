@@ -1,4 +1,4 @@
-package com.mkulikov.taskb.group.dialog
+package com.mkulikov.taskb.group.screen
 
 import com.mkulikov.taskb.designsystem.dialog.Confirmation
 import com.mkulikov.taskb.designsystem.dialog.Message

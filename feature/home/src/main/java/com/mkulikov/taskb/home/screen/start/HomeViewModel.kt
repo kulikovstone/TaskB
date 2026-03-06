@@ -15,11 +15,11 @@ class HomeViewModel(
         viewModelScope.launch {
             when (intent) {
                 StartIntent.OpenGroups -> {
-                    appNavigator.push(GroupRoute.GroupList)
+                    appNavigator.navigate(GroupRoute.GroupList)
                 }
 
                 StartIntent.OpenTasks -> {
-                    appNavigator.push(TaskRoute.TaskList)
+                    appNavigator.navigate(TaskRoute.TaskList)
                 }
             }
         }

@@ -1,7 +1,6 @@
 package com.mkulikov.taskb.group.screen.add_group
 
 import androidx.compose.runtime.Immutable
-import androidx.compose.ui.graphics.toArgb
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mkulikov.taskb.core.navigation.IAppNavigator
@@ -9,7 +8,6 @@ import com.mkulikov.taskb.designsystem.color.GroupColor
 import com.mkulikov.taskb.designsystem.dialog.Message
 import com.mkulikov.taskb.group.interactor.IGroupInteractor
 import com.mkulikov.taskb.group.screen.GroupDialog
-import com.mkulikov.taskb.group_api.database.IGroupRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update

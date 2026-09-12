@@ -1,8 +1,8 @@
 [versions]
 # Build tools
-agp = "9.0.1"
+agp = "9.4.0"
 kotlin = "2.3.10"
-ksp = "2.3.5"
+ksp = "2.3.6"
 
 # Testing
 junit = "4.13.2"

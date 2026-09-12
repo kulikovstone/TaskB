@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.mkulikov.taskb.feature.task"
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         minSdk = 28
@@ -41,16 +41,13 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)
 
+    implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.kotlinx.datetime)
     implementation(libs.kotlinx.collections.immutable)
 
     implementation(platform(libs.compose.bom))
-    implementation(libs.compose.ui)
-    implementation(libs.compose.ui.graphics)
-    implementation(libs.compose.ui.tooling.preview)
-    implementation(libs.compose.material3)
-    implementation(libs.compose.material.icons.extended)
+    implementation(libs.bundles.compose)
     debugImplementation(libs.compose.ui.tooling)
 
     testImplementation(libs.junit)

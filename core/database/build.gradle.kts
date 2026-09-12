@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.mkulikov.taskb.core.database"
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         minSdk = 28
@@ -22,7 +22,6 @@ dependencies {
     implementation(project(":feature:group-api"))
 
     implementation(libs.room.runtime)
-    implementation(libs.room.ktx)
     ksp(libs.room.compiler)
 
     implementation(libs.koin.android)

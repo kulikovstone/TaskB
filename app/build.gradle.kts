@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.mkulikov.taskb.app"
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "com.mkulikov.taskb"
@@ -37,7 +37,7 @@ android {
             signingConfig = signingConfigs.getByName("debug")
 
             isMinifyEnabled = true
-            isShrinkResources = false
+            isShrinkResources = true
 
             matchingFallbacks += listOf("debug")
 
@@ -69,8 +69,6 @@ dependencies {
 
     // AndroidX base
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.android.material)
 
     // Lifecycle / Activity
     implementation(libs.lifecycle.runtime.ktx)
@@ -78,11 +76,7 @@ dependencies {
 
     // Compose
     implementation(platform(libs.compose.bom))
-    implementation(libs.compose.ui)
-    implementation(libs.compose.ui.graphics)
-    implementation(libs.compose.ui.tooling.preview)
-    implementation(libs.compose.material3)
-    implementation(libs.compose.material.icons.extended)
+    implementation(libs.bundles.compose)
 
     // DI
     implementation(libs.koin.android)
@@ -90,7 +84,6 @@ dependencies {
 
     // Database
     implementation(libs.room.runtime)
-    implementation(libs.room.ktx)
     ksp(libs.room.compiler)
 
     // Nav3
@@ -113,7 +106,6 @@ dependencies {
     testImplementation(libs.junit)
 
     // Instrumentation / Compose tests
-    androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.test.espresso.core)
     androidTestImplementation(libs.compose.ui.test.junit4)

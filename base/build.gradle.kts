@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace = "com.mkulikov.taskb.base"
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         minSdk = 24

@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.mkulikov.taskb.core.navigation"
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         minSdk = 28

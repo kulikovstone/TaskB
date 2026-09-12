@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.mkulikov.taskb.feature.task_api"
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         minSdk = 28
@@ -15,6 +15,8 @@ android {
 }
 
 dependencies {
+    api(libs.kotlinx.coroutines.core)
+
     implementation(libs.navigation3.runtime)
     implementation(libs.kotlinx.serialization.json)
 
